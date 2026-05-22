@@ -33,32 +33,71 @@
     /* ══════════════ NAV ══════════════ */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: var(--cream);
+      background: transparent;
+      transition: background .32s ease, box-shadow .32s ease;
       display: flex; align-items: center;
       height: 56px; padding: 0 44px;
     }
+    nav.nav-solid { background: var(--cream); box-shadow: 0 1px 0 rgba(26,51,35,.07); }
     .nav-l, .nav-r { display: flex; align-items: center; gap: 36px; flex: 1; }
     .nav-r { justify-content: flex-end; }
     .nav-c { position: absolute; left: 50%; transform: translateX(-50%); }
     .nav-link {
-      font-family: 'Cormorant SC', serif;
-      font-size: 11px; letter-spacing: .2em;
-      color: var(--text-dark); text-decoration: none;
-      transition: color .2s;
+      font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: .2em;
+      color: rgba(240,235,224,.82); text-decoration: none; transition: color .2s;
     }
     .nav-link:hover { color: var(--gold); }
     .nav-link.active { color: var(--gold); }
+    nav.nav-solid .nav-link { color: var(--text-dark); }
+    nav.nav-solid .nav-link.active { color: var(--gold); }
+    nav.nav-solid .nav-link:hover { color: var(--gold); }
     .logo-mark { display: inline-flex; align-items: center; text-decoration: none; }
     .nav-logo  { height: 34px; display: block; object-fit: contain; }
     .btn-book-nav {
-      font-family: 'Cormorant SC', serif;
-      font-size: 10px; letter-spacing: .2em;
-      color: var(--text-dark); border: 1.5px solid var(--text-dark);
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .2em;
+      color: rgba(240,235,224,.82); border: 1.5px solid rgba(240,235,224,.32);
       padding: 9px 22px; text-decoration: none;
-      transition: background .2s, color .2s; white-space: nowrap;
+      transition: background .2s, color .2s, border-color .2s; white-space: nowrap;
     }
-    .btn-book-nav:hover { background: var(--text-dark); color: var(--cream); }
-    .ig-icon { width: 18px; height: 18px; color: var(--text-dark); flex-shrink: 0; }
+    .btn-book-nav:hover { background: rgba(240,235,224,.12); }
+    nav.nav-solid .btn-book-nav { color: var(--text-dark); border-color: var(--text-dark); }
+    nav.nav-solid .btn-book-nav:hover { background: var(--text-dark); color: var(--cream); }
+    .ig-icon { width: 18px; height: 18px; color: rgba(240,235,224,.72); flex-shrink: 0; transition: color .2s; }
+    nav.nav-solid .ig-icon { color: var(--text-dark); }
+
+    .nav-burger {
+      display: none; cursor: pointer; background: none; border: none; padding: 0;
+      width: 40px; height: 40px; border-radius: 50%;
+      outline: 1px solid rgba(240,235,224,.35);
+      align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+      color: rgba(240,235,224,.85); transition: outline-color .25s, color .25s;
+    }
+    nav.nav-solid .nav-burger { outline-color: rgba(26,51,35,.22); color: var(--text-dark); }
+    .nav-burger span { display: block; width: 17px; height: 1.5px; background: currentColor; border-radius: 1px; transition: transform .24s, opacity .24s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-panel {
+      position: fixed; top: 56px; left: 0; right: 0; z-index: 998;
+      background: var(--cream); overflow: hidden; max-height: 0;
+      transition: max-height .38s cubic-bezier(.4,0,.2,1), box-shadow .2s;
+    }
+    .nav-mobile-panel.open { max-height: 420px; box-shadow: 0 8px 28px rgba(26,51,35,.12); }
+    .nav-mob-inner { padding: 10px 22px 26px; }
+    .nav-mob-link {
+      display: block; font-family: 'Cormorant SC', serif; font-size: 14px; letter-spacing: .22em;
+      color: var(--text-dark); text-decoration: none;
+      padding: 15px 0; border-bottom: 1px solid rgba(26,51,35,.07); transition: color .2s;
+    }
+    .nav-mob-link:hover, .nav-mob-link.active { color: var(--gold); }
+    .nav-mob-book {
+      display: block; text-align: center;
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em;
+      color: var(--cream); background: var(--text-dark);
+      padding: 15px; margin-top: 18px; text-decoration: none; transition: background .2s;
+    }
+    .nav-mob-book:hover { background: var(--green); }
 
     /* ══════════════ HERO ══════════════ */
     #hero {
@@ -362,12 +401,13 @@
 
     /* ══════════════ MOBILE ══════════════ */
     @media (max-width: 860px) {
-      /* Nav — hide text links, keep logo + book */
+      /* Nav */
       nav { padding: 0 18px; height: 52px; }
-      .nav-l { gap: 14px; }
+      .nav-l { gap: 12px; }
       .nav-l .nav-link, .nav-r .nav-link { display: none; }
+      .btn-book-nav { display: none; }
       .nav-r { gap: 0; }
-      .btn-book-nav { padding: 8px 14px; font-size: 9px; letter-spacing: .16em; }
+      .nav-burger { display: flex; }
 
       /* Hero */
       #hero { height: 38vh; min-height: 230px; }
@@ -391,7 +431,9 @@
       /* Rating summary */
       .rating-summary { flex-direction: column; gap: 20px; }
       .rating-numeral { font-size: 58px; }
-      .rating-bars { padding-top: 0; }
+      .rating-bars { padding-top: 0; width: 100%; }
+      .bar-track { height: 4px; }
+      .bar-row { gap: 12px; }
 
       /* Review cards */
       .rc-text { font-size: 15px; }
@@ -529,8 +571,22 @@
     <a href="menu.html"            class="nav-link">Menu</a>
     <a href="reviews.html"         class="nav-link active">Reviews</a>
     <a href="index.html#visit"     class="btn-book-nav">Book Now</a>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div class="nav-mobile-panel">
+  <div class="nav-mob-inner">
+    <a href="index.html#about"      class="nav-mob-link">About</a>
+    <a href="index.html#experience" class="nav-mob-link">Experience</a>
+    <a href="menu.html"             class="nav-mob-link">Menu</a>
+    <a href="reviews.html"          class="nav-mob-link active">Reviews</a>
+    <a href="index.html#visit"      class="nav-mob-link">Contact</a>
+    <a href="index.html#visit"      class="nav-mob-book">Book Now</a>
+  </div>
+</div>
 
 <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
 <section id="hero">
@@ -883,6 +939,16 @@
     this.style.display = 'none';
     document.getElementById('form-thanks').style.display = 'block';
   });
+
+  (function(){
+    var nav=document.querySelector('nav'),burger=document.querySelector('.nav-burger'),panel=document.querySelector('.nav-mobile-panel');
+    function updateNav(){nav.classList.toggle('nav-solid',window.scrollY>40);}
+    window.addEventListener('scroll',updateNav,{passive:true});updateNav();
+    if(burger&&panel){
+      burger.addEventListener('click',function(){var o=panel.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);});
+      panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){panel.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false);});});
+    }
+  })();
 </script>
 
 </body>
