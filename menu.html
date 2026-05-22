@@ -345,6 +345,56 @@
     .footer-bottom-links a { color: rgba(240,235,224,.26); text-decoration: none; transition: color .2s; }
     .footer-bottom-links a:hover { color: rgba(240,235,224,.5); }
     .f-sep { color: rgba(240,235,224,.14); }
+
+    /* ══════════════ MOBILE ══════════════ */
+    @media (max-width: 860px) {
+      /* Nav */
+      nav { padding: 0 18px; height: 52px; }
+      .nav-l { gap: 12px; }
+      .nav-l .nav-link, .nav-r .nav-link { display: none; }
+      .nav-r { gap: 0; }
+      .btn-book-nav { padding: 8px 14px; font-size: 9px; letter-spacing: .14em; }
+
+      /* Hero */
+      #hero { height: 44vh; min-height: 240px; }
+      .hero-fl-tl { width: 140px; height: 140px; }
+      .hero-fl-br { width: 130px; height: 130px; }
+      .hero-menu-text .hero-m   { font-size: 68px; }
+      .hero-menu-text .hero-enu { font-size: 54px; }
+
+      /* Food layout — collapse panels, single column */
+      .food-wrap { grid-template-columns: 1fr; }
+      .food-panel { display: none; }
+      .food-center { padding: 48px 22px 40px; }
+      .food-fl { display: none; }
+
+      /* Menu sections */
+      .menu-section-title { font-size: 11px; margin-top: 40px; margin-bottom: 20px; }
+      .dish-name { font-size: 18px; }
+      .dish-price { font-size: 13px; }
+
+      /* Bar sections — stack to single column */
+      .bar-section {
+        display: flex !important;
+        flex-direction: column;
+        padding: 40px 22px;
+        gap: 36px;
+      }
+      /* Reverse order for liqueur so text comes first on mobile */
+      .bar-section.liqueur { flex-direction: column; }
+
+      /* Drink columns — single column */
+      .drink-cols { grid-template-columns: 1fr; gap: 0; }
+
+      /* Hide photo collages on mobile — too complex for small screen */
+      .collage-frame { display: none; }
+
+      /* Footer */
+      footer { padding: 48px 22px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-bottom-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    }
   </style>
 </head>
 <body>

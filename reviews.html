@@ -359,6 +359,57 @@
     .footer-bottom-links a { color: rgba(240,235,224,.26); text-decoration: none; transition: color .2s; }
     .footer-bottom-links a:hover { color: rgba(240,235,224,.5); }
     .f-sep { color: rgba(240,235,224,.14); }
+
+    /* ══════════════ MOBILE ══════════════ */
+    @media (max-width: 860px) {
+      /* Nav — hide text links, keep logo + book */
+      nav { padding: 0 18px; height: 52px; }
+      .nav-l { gap: 14px; }
+      .nav-l .nav-link, .nav-r .nav-link { display: none; }
+      .nav-r { gap: 0; }
+      .btn-book-nav { padding: 8px 14px; font-size: 9px; letter-spacing: .16em; }
+
+      /* Hero */
+      #hero { height: 38vh; min-height: 230px; }
+      .hero-fl-tl { width: 130px; height: 130px; }
+      .hero-fl-br { width: 120px; height: 120px; }
+      .hero-page-text .hero-r   { font-size: 58px; }
+      .hero-page-text .hero-est { font-size: 46px; }
+
+      /* Reviews outer */
+      .reviews-outer { padding: 48px 0 60px; }
+      .reviews-inner {
+        grid-template-columns: 1fr;
+        gap: 44px;
+        padding: 0 20px;
+      }
+      .rev-botanical-tl, .rev-botanical-br { display: none; }
+
+      /* Section headings */
+      .sec-heading { font-size: 30px; }
+
+      /* Rating summary */
+      .rating-summary { flex-direction: column; gap: 20px; }
+      .rating-numeral { font-size: 58px; }
+      .rating-bars { padding-top: 0; }
+
+      /* Review cards */
+      .rc-text { font-size: 15px; }
+
+      /* Form — unstick, full width */
+      .form-col { position: static; }
+      .form-card { padding: 32px 22px 28px; }
+      .form-heading { font-size: 26px; }
+      .star-row label { font-size: 26px; }
+      .pills { gap: 6px; }
+      .pill-item label { padding: 6px 12px; font-size: 8.5px; }
+
+      /* Footer */
+      footer { padding: 48px 22px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-bottom-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    }
   </style>
 </head>
 <body>
