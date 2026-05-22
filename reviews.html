@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews — Soraia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #1d3d2a;
+      --green-dark: #152d1e;
+      --green-card: #1c3828;
+      --cream:      #f0ebe0;
+      --cream-dark: #e2dccf;
+      --gold:       #c4965a;
+      --text-dark:  #1a3323;
+      --text-muted: #587060;
+      --text-light: #f0ebe0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ══════════════ NAV ══════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--cream);
+      display: flex; align-items: center;
+      height: 56px; padding: 0 44px;
+    }
+    .nav-l, .nav-r { display: flex; align-items: center; gap: 36px; flex: 1; }
+    .nav-r { justify-content: flex-end; }
+    .nav-c { position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-link {
+      font-family: 'Cormorant SC', serif;
+      font-size: 11px; letter-spacing: .2em;
+      color: var(--text-dark); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-link:hover { color: var(--gold); }
+    .nav-link.active { color: var(--gold); }
+    .logo-mark { display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-logo  { height: 34px; display: block; object-fit: contain; }
+    .btn-book-nav {
+      font-family: 'Cormorant SC', serif;
+      font-size: 10px; letter-spacing: .2em;
+      color: var(--text-dark); border: 1.5px solid var(--text-dark);
+      padding: 9px 22px; text-decoration: none;
+      transition: background .2s, color .2s; white-space: nowrap;
+    }
+    .btn-book-nav:hover { background: var(--text-dark); color: var(--cream); }
+    .ig-icon { width: 18px; height: 18px; color: var(--text-dark); flex-shrink: 0; }
+
+    /* ══════════════ HERO ══════════════ */
+    #hero {
+      height: 52vh; min-height: 380px;
+      background-color: #1d3d2a;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 58% at 62% 60%, rgba(5,14,8,.92) 0%, transparent 65%),
+        radial-gradient(ellipse 48% 44% at 20% 25%, rgba(4,12,7,.80) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 42% at 86% 18%, rgba(24,52,34,.55) 0%, transparent 52%);
+    }
+    .hero-grain-c {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.42 .36' numOctaves='4' seed='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>");
+      background-size: 550px 550px; mix-blend-mode: soft-light; opacity: .72;
+    }
+    .hero-grain-f {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.78 .66' numOctaves='3' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+      background-size: 260px 260px; mix-blend-mode: overlay; opacity: .38;
+    }
+    .hero-fl-tl {
+      position: absolute; top: 0; left: 0;
+      width: 260px; height: 260px; z-index: 1;
+      opacity: .22; pointer-events: none; color: #c4965a;
+    }
+    .hero-fl-br {
+      position: absolute; bottom: 0; right: 0;
+      width: 240px; height: 240px; z-index: 1;
+      opacity: .22; pointer-events: none; color: #c4965a;
+    }
+    .hero-page-text {
+      position: relative; z-index: 2;
+      color: #d4b896;
+    }
+    .hero-page-text .hero-r   { font-family: 'Great Vibes', cursive; font-size: 108px; line-height: 1; display: inline-block; transform: translateY(8px); color: #d4b896; }
+    .hero-page-text .hero-est { font-family: 'Cormorant SC', serif; font-size: 88px; letter-spacing: .06em; font-weight: 300; color: #d4b896; }
+
+    /* ══════════════ REVIEWS OUTER ══════════════ */
+    .reviews-outer {
+      background: var(--cream);
+      padding: 88px 0 110px;
+      position: relative;
+    }
+    .rev-botanical-tl {
+      position: absolute; top: 0; left: 0;
+      width: 280px; height: 280px; z-index: 0;
+      opacity: .055; pointer-events: none; color: var(--text-dark);
+    }
+    .rev-botanical-br {
+      position: absolute; bottom: 0; right: 0;
+      width: 280px; height: 280px; z-index: 0;
+      opacity: .055; pointer-events: none; color: var(--text-dark);
+    }
+
+    .reviews-inner {
+      position: relative; z-index: 1;
+      max-width: 1260px; margin: 0 auto;
+      padding: 0 70px;
+      display: grid;
+      grid-template-columns: 1fr 410px;
+      gap: 90px;
+      align-items: start;
+    }
+
+    /* Section labels */
+    .sec-sup {
+      font-family: 'Cormorant SC', serif;
+      font-size: 10px; letter-spacing: .32em;
+      color: var(--text-muted); margin-bottom: 6px; display: block;
+    }
+    .sec-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300;
+      color: var(--text-dark); line-height: 1.08;
+      margin-bottom: 10px;
+    }
+    .gold-rule { width: 46px; height: 1px; background: var(--gold); margin-bottom: 40px; }
+
+    /* ── Rating Summary ── */
+    .rating-summary {
+      display: flex; align-items: flex-start; gap: 32px;
+      padding-bottom: 40px; margin-bottom: 44px;
+      border-bottom: 1px solid rgba(26,51,35,.1);
+    }
+    .rating-score-block { flex-shrink: 0; }
+    .rating-numeral {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 78px; font-weight: 300; line-height: 1;
+      color: var(--text-dark);
+    }
+    .rating-numeral sup { font-size: 32px; color: var(--text-muted); font-weight: 300; }
+    .rating-stars-display { display: flex; gap: 3px; margin: 4px 0 5px; }
+    .rating-stars-display span { font-size: 17px; color: var(--gold); }
+    .rating-count-text { font-size: 13px; font-style: italic; color: var(--text-muted); white-space: nowrap; }
+
+    .rating-bars { flex: 1; display: flex; flex-direction: column; gap: 9px; padding-top: 6px; }
+    .bar-row { display: flex; align-items: center; gap: 11px; }
+    .bar-label { font-family: 'Cormorant SC', serif; font-size: 11px; color: var(--text-muted); width: 9px; text-align: right; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 2px; background: var(--cream-dark); overflow: hidden; }
+    .bar-fill  { height: 100%; background: var(--gold); }
+    .bar-n     { font-size: 12px; font-style: italic; color: var(--text-muted); width: 28px; }
+
+    /* ── Review Cards ── */
+    .review-card {
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(26,51,35,.08);
+    }
+    .review-card:first-child { padding-top: 0; }
+    .review-card:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .rc-top { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 16px; }
+    .rc-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--green); color: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant SC', serif; font-size: 19px; flex-shrink: 0;
+    }
+    .rc-meta { flex: 1; }
+    .rc-name {
+      font-family: 'Cormorant SC', serif;
+      font-size: 13px; letter-spacing: .07em;
+      color: var(--text-dark); display: block; margin-bottom: 3px;
+    }
+    .rc-date { font-size: 12px; font-style: italic; color: var(--text-muted); }
+    .rc-stars { display: flex; gap: 2px; }
+    .rc-stars span { font-size: 13px; color: var(--gold); }
+    .rc-stars .s-empty { color: var(--cream-dark); }
+
+    .rc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .rc-tag {
+      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .18em;
+      color: var(--text-muted); border: 1px solid rgba(26,51,35,.18);
+      padding: 3px 11px;
+    }
+
+    .rc-text {
+      font-size: 17px; line-height: 1.78; font-style: italic;
+      color: var(--text-dark); font-weight: 400;
+    }
+    .rc-text .expand-toggle {
+      display: none; /* shown via JS for long reviews */
+      font-family: 'Cormorant SC', serif;
+      font-size: 9px; letter-spacing: .2em;
+      color: var(--gold); cursor: pointer;
+      background: none; border: none; padding: 0;
+      margin-left: 6px; vertical-align: middle;
+    }
+
+    /* ══════════════ FORM CARD ══════════════ */
+    .form-col { position: sticky; top: 72px; }
+
+    .form-card {
+      background: var(--green);
+      padding: 44px 40px 40px;
+      position: relative; overflow: hidden;
+    }
+    /* Subtle noise on form card */
+    .form-card::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' seed='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+      background-size: 240px 240px; mix-blend-mode: soft-light; opacity: .28;
+    }
+    .form-inner { position: relative; z-index: 1; }
+
+    .form-sup {
+      font-family: 'Cormorant SC', serif;
+      font-size: 9px; letter-spacing: .3em;
+      color: rgba(240,235,224,.45); display: block; margin-bottom: 6px;
+    }
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 300; line-height: 1.08;
+      color: var(--cream); margin-bottom: 10px;
+    }
+    .form-gold-rule { width: 38px; height: 1px; background: var(--gold); margin-bottom: 32px; }
+
+    .fg { margin-bottom: 19px; }
+    .fg > label {
+      display: block;
+      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .22em;
+      color: rgba(240,235,224,.5); margin-bottom: 7px;
+    }
+    .fg input[type="text"],
+    .fg input[type="tel"],
+    .fg textarea {
+      width: 100%;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(240,235,224,.16);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif; font-size: 16px;
+      padding: 12px 15px; outline: none;
+      transition: border-color .2s; border-radius: 0;
+      -webkit-appearance: none; appearance: none;
+    }
+    .fg input[type="text"]::placeholder,
+    .fg input[type="tel"]::placeholder,
+    .fg textarea::placeholder {
+      color: rgba(240,235,224,.25); font-style: italic;
+    }
+    .fg input[type="text"]:focus,
+    .fg input[type="tel"]:focus,
+    .fg textarea:focus {
+      border-color: var(--gold);
+    }
+    .fg textarea { resize: vertical; min-height: 108px; }
+
+    /* Star rating — pure CSS RTL trick */
+    .star-field-label {
+      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .22em;
+      color: rgba(240,235,224,.5); display: block; margin-bottom: 9px;
+    }
+    .star-row {
+      display: flex; flex-direction: row-reverse;
+      justify-content: flex-end; gap: 5px; margin-bottom: 26px;
+    }
+    .star-row input[type="radio"] { display: none; }
+    .star-row label {
+      font-size: 28px; line-height: 1;
+      color: rgba(240,235,224,.18);
+      cursor: pointer; transition: color .14s;
+    }
+    .star-row input[type="radio"]:checked + label,
+    .star-row input[type="radio"]:checked ~ label,
+    .star-row label:hover,
+    .star-row label:hover ~ label {
+      color: var(--gold);
+    }
+
+    /* Pill toggles */
+    .pill-label-text {
+      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .22em;
+      color: rgba(240,235,224,.5); display: block; margin-bottom: 10px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+    .pill-item input[type="checkbox"],
+    .pill-item input[type="radio"]   { display: none; }
+    .pill-item label {
+      display: block;
+      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .16em;
+      color: rgba(240,235,224,.58);
+      border: 1px solid rgba(240,235,224,.2);
+      padding: 7px 14px; cursor: pointer; transition: all .16s;
+      white-space: nowrap;
+    }
+    .pill-item label:hover { border-color: rgba(240,235,224,.48); color: rgba(240,235,224,.9); }
+    .pill-item input:checked + label {
+      background: var(--gold); border-color: var(--gold);
+      color: var(--green-dark);
+    }
+
+    /* Submit */
+    .btn-submit {
+      width: 100%; margin-top: 6px;
+      font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: .28em;
+      color: var(--green-dark); background: var(--gold);
+      border: none; padding: 16px; cursor: pointer;
+      transition: opacity .18s;
+    }
+    .btn-submit:hover { opacity: .86; }
+
+    /* Thank-you state */
+    .form-thanks {
+      display: none; text-align: center; padding: 16px 0;
+    }
+    .thanks-icon { font-size: 40px; color: var(--gold); display: block; margin-bottom: 14px; }
+    .thanks-heading {
+      font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300;
+      color: var(--cream); margin-bottom: 10px;
+    }
+    .thanks-sub { font-size: 15px; font-style: italic; color: rgba(240,235,224,.5); line-height: 1.65; }
+
+    /* ══════════════ FOOTER ══════════════ */
+    footer { background: var(--green-dark); padding: 80px 100px 36px; position: relative; overflow: hidden; }
+    .footer-bg { position: absolute; inset: 0; z-index: 0; opacity: .06; pointer-events: none; width: 100%; height: 100%; }
+    .footer-inner { position: relative; z-index: 1; }
+    .footer-top {
+      display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 60px;
+      padding-bottom: 48px; margin-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand { display: flex; align-items: center; margin-bottom: 14px; }
+    .footer-logo-img { height: 52px; display: block; object-fit: contain; }
+    .footer-tagline { font-size: 13px; font-style: italic; color: rgba(240,235,224,.44); line-height: 1.72; max-width: 260px; }
+    .footer-col-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em; color: rgba(240,235,224,.38); margin-bottom: 22px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 16px; font-style: italic; color: rgba(240,235,224,.64); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-contact { font-size: 14px; font-style: italic; color: rgba(240,235,224,.64); line-height: 1.8; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .06em; color: rgba(240,235,224,.26); }
+    .footer-bottom-links { display: flex; align-items: center; gap: 18px; }
+    .footer-bottom-links a { color: rgba(240,235,224,.26); text-decoration: none; transition: color .2s; }
+    .footer-bottom-links a:hover { color: rgba(240,235,224,.5); }
+    .f-sep { color: rgba(240,235,224,.14); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ SVG DEFS ══════════════════════════════ -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <symbol id="botanical-card" viewBox="0 0 500 380" fill="none" stroke="white" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="250" cy="190" r="8"/><circle cx="250" cy="190" r="4"/>
+      <path d="M247 182C239 158 235 126 238 94 244 124 247 156 247 182Z"/>
+      <path d="M253 182C261 158 265 126 262 94 256 124 253 156 253 182Z"/>
+      <path d="M257 186C276 172 296 154 314 130 296 156 277 174 257 186Z"/>
+      <path d="M259 192C282 190 308 188 334 192 308 200 282 200 259 192Z"/>
+      <path d="M257 198C276 218 296 240 314 266 296 242 277 220 257 198Z"/>
+      <path d="M253 202C261 228 265 258 262 290 256 260 253 228 253 202Z"/>
+      <path d="M247 202C239 228 235 258 238 290 244 260 247 228 247 202Z"/>
+      <path d="M243 198C224 218 204 240 186 266 204 242 223 220 243 198Z"/>
+      <path d="M241 192C218 190 192 188 166 192 192 200 218 200 241 192Z"/>
+      <path d="M243 186C224 172 204 154 186 130 204 156 223 174 243 186Z"/>
+      <path d="M244 202C220 242 190 285 158 318"/>
+      <path d="M190 278C178 264 162 258 153 269 163 272 177 276 190 278Z"/>
+      <path d="M190 278C186 292 190 306 202 310 195 298 190 288 190 278Z"/>
+      <path d="M256 202C275 242 296 282 310 318"/>
+      <path d="M290 282C300 270 310 266 318 275 310 278 300 282 290 282Z"/>
+      <circle cx="72" cy="72" r="5"/><circle cx="72" cy="72" r="2.5"/>
+      <path d="M70 67C64 54 62 36 65 18 68 36 70 54 70 67Z"/>
+      <path d="M74 67C80 54 82 36 79 18 76 36 74 54 74 67Z"/>
+      <path d="M77 72C90 65 106 60 124 62 106 69 90 72 77 72Z"/>
+      <path d="M67 72C54 65 38 60 20 62 38 69 54 72 67 72Z"/>
+      <path d="M74 77C91 99 106 128 110 160"/>
+      <path d="M72 77C60 66 50 50 44 32"/>
+      <path d="M70 77C58 100 50 128 52 158"/>
+      <circle cx="438" cy="88" r="4.5"/>
+      <path d="M436 84C430 72 428 54 431 36 434 54 436 72 436 84Z"/>
+      <path d="M440 84C446 72 448 54 445 36 442 54 440 72 440 84Z"/>
+      <path d="M443 88C454 82 468 78 484 80 468 87 454 88 443 88Z"/>
+      <path d="M433 88C422 82 408 78 392 80 408 87 422 88 433 88Z"/>
+      <path d="M440 93C454 112 462 136 460 162"/>
+      <path d="M438 93C424 110 410 132 405 158"/>
+      <path d="M388 300C372 284 354 278 345 290 356 294 372 298 388 300Z"/>
+      <path d="M388 300C382 314 386 330 398 335 391 320 387 309 388 300Z"/>
+      <path d="M388 300C402 286 408 268 403 250 396 266 390 284 388 300Z"/>
+      <path d="M252 192C252 192 275 220 288 260 295 280 292 310 280 330"/>
+      <circle cx="150" cy="342" r="2" fill="white" stroke="none"/>
+      <circle cx="342" cy="58"  r="1.5" fill="white" stroke="none"/>
+      <circle cx="48"  cy="240" r="1.5" fill="white" stroke="none"/>
+      <circle cx="468" cy="280" r="2" fill="white" stroke="none"/>
+    </symbol>
+
+    <symbol id="fl-tl" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="188" cy="188" r="5.5"/><circle cx="188" cy="188" r="2.5"/>
+      <path d="M186 182C178 160 170 130 174 100 179 128 184 158 186 182Z" stroke-width="0.8"/>
+      <path d="M190 182C198 160 206 130 202 100 197 128 192 158 190 182Z" stroke-width="0.8"/>
+      <path d="M193 185C208 168 226 148 248 130 228 150 210 170 193 185Z" stroke-width="0.8"/>
+      <path d="M195 190C218 188 244 186 270 190 244 198 218 198 195 190Z" stroke-width="0.8"/>
+      <path d="M193 195C208 215 226 238 248 258 228 240 210 218 193 195Z" stroke-width="0.8"/>
+      <path d="M190 198C198 222 206 250 202 278 197 252 192 222 190 198Z" stroke-width="0.8"/>
+      <path d="M186 198C178 222 170 250 174 278 179 252 184 222 186 198Z" stroke-width="0.8"/>
+      <path d="M183 195C168 215 150 238 128 258 148 240 166 218 183 195Z" stroke-width="0.8"/>
+      <path d="M181 190C158 188 132 186 106 190 132 198 158 198 181 190Z" stroke-width="0.8"/>
+      <path d="M183 185C168 168 150 148 128 130 148 150 166 170 183 185Z" stroke-width="0.8"/>
+      <path d="M184 198C162 232 132 268 98 295" stroke-width="0.7"/>
+      <path d="M140 252C128 238 113 233 105 244 115 247 128 250 140 252Z" stroke-width="0.7"/>
+      <circle cx="76" cy="82" r="3.5"/><circle cx="76" cy="82" r="1.5"/>
+      <path d="M74 78C68 65 66 47 69 29 72 47 74 65 74 78Z" stroke-width="0.7"/>
+      <path d="M78 78C84 65 86 47 83 29 80 47 78 65 78 78Z" stroke-width="0.7"/>
+      <path d="M80 82C92 76 108 72 126 74 108 80 92 82 80 82Z" stroke-width="0.7"/>
+      <path d="M72 82C60 76 44 72 26 74 44 80 60 82 72 82Z" stroke-width="0.7"/>
+      <path d="M78 86C100 118 136 152 182 186" stroke-width="0.6"/>
+      <circle cx="220" cy="84" r="2" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="fl-br" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="112" cy="112" r="5"/><circle cx="112" cy="112" r="2.5"/>
+      <path d="M110 106C102 84 98 54 102 24 107 52 110 82 110 106Z" stroke-width="0.8"/>
+      <path d="M114 106C122 84 126 54 122 24 117 52 114 82 114 106Z" stroke-width="0.8"/>
+      <path d="M117 110C132 92 150 72 172 54 152 74 134 94 117 110Z" stroke-width="0.8"/>
+      <path d="M119 116C142 114 168 112 194 116 168 124 142 124 119 116Z" stroke-width="0.8"/>
+      <path d="M117 122C132 142 150 166 172 188 152 168 134 144 117 122Z" stroke-width="0.8"/>
+      <path d="M114 126C122 150 126 180 122 210 117 182 114 150 114 126Z" stroke-width="0.8"/>
+      <path d="M110 126C102 150 98 180 102 210 107 182 110 150 110 126Z" stroke-width="0.8"/>
+      <path d="M107 122C92 142 74 166 52 188 72 168 90 144 107 122Z" stroke-width="0.8"/>
+      <path d="M105 116C82 114 56 112 30 116 56 124 82 124 105 116Z" stroke-width="0.8"/>
+      <path d="M107 110C92 92 74 72 52 54 72 74 90 94 107 110Z" stroke-width="0.8"/>
+      <path d="M112 126C92 162 68 208 48 258" stroke-width="0.7"/>
+      <path d="M78 202C66 188 50 183 42 194 52 197 66 200 78 202Z" stroke-width="0.7"/>
+      <circle cx="220" cy="210" r="3.5"/>
+      <path d="M218 206C212 193 210 175 213 157 216 175 218 193 218 206Z" stroke-width="0.7"/>
+      <path d="M222 206C228 193 230 175 227 157 224 175 222 193 222 206Z" stroke-width="0.7"/>
+      <path d="M224 210C236 204 252 200 270 202 252 208 236 210 224 210Z" stroke-width="0.7"/>
+      <path d="M216 210C204 204 188 200 170 202 188 208 204 210 216 210Z" stroke-width="0.7"/>
+    </symbol>
+
+  </defs>
+</svg>
+
+<!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav>
+  <div class="nav-l">
+    <a href="https://instagram.com/soraia.in" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a href="index.html#about"      class="nav-link">About</a>
+    <a href="index.html#experience" class="nav-link">Experience</a>
+  </div>
+  <div class="nav-c">
+    <a href="index.html" class="logo-mark">
+      <img src="soraia.webp" alt="Soraia" class="nav-logo">
+    </a>
+  </div>
+  <div class="nav-r">
+    <a href="menu.html"            class="nav-link">Menu</a>
+    <a href="reviews.html"         class="nav-link active">Reviews</a>
+    <a href="index.html#visit"     class="btn-book-nav">Book Now</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-grain-c"></div>
+  <div class="hero-grain-f"></div>
+  <svg class="hero-fl-tl" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-tl" stroke-width="0.7"/>
+  </svg>
+  <svg class="hero-fl-br" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-br" stroke-width="0.7"/>
+  </svg>
+  <div class="hero-page-text">
+    <span class="hero-r">R</span><span class="hero-est">EVIEWS</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ REVIEWS + FORM ══════════════════════════════ -->
+<section class="reviews-outer">
+
+  <!-- Subtle botanical corners -->
+  <svg class="rev-botanical-tl" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-tl" stroke-width="0.7"/>
+  </svg>
+  <svg class="rev-botanical-br" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-br" stroke-width="0.7"/>
+  </svg>
+
+  <div class="reviews-inner">
+
+    <!-- ── LEFT COLUMN: Reviews ── -->
+    <div class="reviews-col">
+      <span class="sec-sup">Guest Reflections</span>
+      <h2 class="sec-heading">What Our Guests Say</h2>
+      <div class="gold-rule"></div>
+
+      <!-- Rating summary -->
+      <div class="rating-summary">
+        <div class="rating-score-block">
+          <div class="rating-numeral">4.8<sup>/5</sup></div>
+          <div class="rating-stars-display">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="rating-count-text">Based on 248 reviews</div>
+        </div>
+        <div class="rating-bars">
+          <div class="bar-row">
+            <span class="bar-label">5</span>
+            <div class="bar-track"><div class="bar-fill" style="width:78%"></div></div>
+            <span class="bar-n">193</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">4</span>
+            <div class="bar-track"><div class="bar-fill" style="width:14%"></div></div>
+            <span class="bar-n">35</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">3</span>
+            <div class="bar-track"><div class="bar-fill" style="width:5%"></div></div>
+            <span class="bar-n">12</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">2</span>
+            <div class="bar-track"><div class="bar-fill" style="width:2%"></div></div>
+            <span class="bar-n">5</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">1</span>
+            <div class="bar-track"><div class="bar-fill" style="width:1%"></div></div>
+            <span class="bar-n">3</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Review Cards ── -->
+      <div class="reviews-list">
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">H</div>
+            <div class="rc-meta">
+              <span class="rc-name">Hisandhercravings</span>
+              <span class="rc-date">2 weeks ago · Dining with Partner</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Ambience</span>
+            <span class="rc-tag">Service</span>
+          </div>
+          <p class="rc-text">Last evening, I took Payal out for a sundowner date, looking for a place with good vibes, great food, and a setting that feels elevated yet relaxed. Soraia delivered on every front. The rooftop ambience at dusk is simply spectacular — the light, the greenery, the quiet luxury of it all. Service was warm without being intrusive, and the tasting menu felt like a genuine culinary journey. Both classic and brilliantly surprising.</p>
+        </article>
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">U</div>
+            <div class="rc-meta">
+              <span class="rc-name">Urmi Chhapia</span>
+              <span class="rc-date">2 weeks ago · Dining with Friends</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Service</span>
+            <span class="rc-tag">Drinks</span>
+          </div>
+          <p class="rc-text">Soraia is a very pretty restaurant with panoramic views across the city. The food and cocktails are excellent — each plate arrived with a story and each cocktail was a composition in itself. The staff are courteous and attentive without hovering. The Omakase Bar experience is unlike anything else in Mumbai, and I say that as someone who has been to most of the city's fine-dining establishments.</p>
+        </article>
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">A</div>
+            <div class="rc-meta">
+              <span class="rc-name">Adttya Verma</span>
+              <span class="rc-date">1 month ago · Dining with Family</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span class="s-empty">★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Ambience</span>
+          </div>
+          <p class="rc-text">A truly elevated experience. The botanical interiors make you feel transported to another era entirely. Every course was thoughtfully composed and I particularly loved the Indian-European fusion approach — familiar flavours reimagined with genuine restraint and technique. Would strongly recommend the omakase format for a special occasion. The only small note: parking on a weekend evening can be a challenge.</p>
+        </article>
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">P</div>
+            <div class="rc-meta">
+              <span class="rc-name">Priya Mehta</span>
+              <span class="rc-date">6 weeks ago · Anniversary dinner</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Service</span>
+            <span class="rc-tag">Ambience</span>
+            <span class="rc-tag">Drinks</span>
+          </div>
+          <p class="rc-text">Perfect anniversary dinner. The attention to detail — from the candlelit table setting to the handwritten seasonal menu — was impeccable throughout. Chef's pairings showed genuine mastery and the cocktail programme is inventive without being gimmicky. The team even arranged a small personalised dessert as a surprise. We will absolutely be back, and have already recommended Soraia to everyone we know.</p>
+        </article>
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">R</div>
+            <div class="rc-meta">
+              <span class="rc-name">Rahul Joshi</span>
+              <span class="rc-date">2 months ago · Solo</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Service</span>
+            <span class="rc-tag">Atmosphere</span>
+          </div>
+          <p class="rc-text">Worth every rupee. The service is gracious without being stiff and there is a warmth to this place that simply cannot be manufactured. The food has real soul — deeply rooted in Indian flavour memory but completely open to European technique and sensibility. Sitting at the omakase bar solo was one of the more memorable dining experiences I have had in this city. This is what fine dining in Mumbai should feel like.</p>
+        </article>
+
+        <article class="review-card">
+          <div class="rc-top">
+            <div class="rc-avatar">S</div>
+            <div class="rc-meta">
+              <span class="rc-name">Sanjana Rao</span>
+              <span class="rc-date">3 months ago · Dining with Colleagues</span>
+            </div>
+            <div class="rc-stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+          </div>
+          <div class="rc-tags">
+            <span class="rc-tag">Food</span>
+            <span class="rc-tag">Ambience</span>
+            <span class="rc-tag">Drinks</span>
+          </div>
+          <p class="rc-text">We came for a team dinner and Soraia exceeded every expectation. The private dining setup was elegant without feeling corporate, and the chef's custom menu for the evening was a genuine conversation piece. Each course sparked discussion and delight in equal measure. The botanical wine list is thoughtfully curated and the sommelier's pairings were inspired. A restaurant with a distinct point of view — rare and refreshing.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ── RIGHT COLUMN: Form ── -->
+    <div class="form-col">
+      <div class="form-card">
+        <div class="form-inner">
+          <span class="form-sup">Your Voice Matters</span>
+          <h3 class="form-heading">Share Your<br>Experience</h3>
+          <div class="form-gold-rule"></div>
+
+          <form id="review-form" novalidate>
+
+            <div class="fg">
+              <label for="rf-name">Your Name</label>
+              <input type="text" id="rf-name" name="name" placeholder="Full name" autocomplete="name">
+            </div>
+
+            <div class="fg">
+              <label for="rf-phone">Phone Number</label>
+              <input type="tel" id="rf-phone" name="phone" placeholder="+91 00000 00000" autocomplete="tel">
+            </div>
+
+            <!-- Star rating -->
+            <span class="star-field-label">Your Rating</span>
+            <div class="star-row" role="radiogroup" aria-label="Rating">
+              <input type="radio" id="rs5" name="rating" value="5">
+              <label for="rs5" title="5 stars — Exceptional">★</label>
+              <input type="radio" id="rs4" name="rating" value="4">
+              <label for="rs4" title="4 stars — Very good">★</label>
+              <input type="radio" id="rs3" name="rating" value="3">
+              <label for="rs3" title="3 stars — Good">★</label>
+              <input type="radio" id="rs2" name="rating" value="2">
+              <label for="rs2" title="2 stars — Fair">★</label>
+              <input type="radio" id="rs1" name="rating" value="1">
+              <label for="rs1" title="1 star — Poor">★</label>
+            </div>
+
+            <!-- What impressed you -->
+            <span class="pill-label-text">What Impressed You?</span>
+            <div class="pills">
+              <span class="pill-item">
+                <input type="checkbox" id="pi-food"      name="highlights" value="Food">
+                <label for="pi-food">Food</label>
+              </span>
+              <span class="pill-item">
+                <input type="checkbox" id="pi-service"   name="highlights" value="Service">
+                <label for="pi-service">Service</label>
+              </span>
+              <span class="pill-item">
+                <input type="checkbox" id="pi-ambience"  name="highlights" value="Ambience">
+                <label for="pi-ambience">Ambience</label>
+              </span>
+              <span class="pill-item">
+                <input type="checkbox" id="pi-drinks"    name="highlights" value="Drinks">
+                <label for="pi-drinks">Drinks</label>
+              </span>
+              <span class="pill-item">
+                <input type="checkbox" id="pi-omakase"   name="highlights" value="Omakase Bar">
+                <label for="pi-omakase">Omakase Bar</label>
+              </span>
+            </div>
+
+            <!-- Who did you dine with -->
+            <span class="pill-label-text">Who Did You Dine With?</span>
+            <div class="pills">
+              <span class="pill-item">
+                <input type="radio" id="dw-partner"    name="dining_with" value="Partner">
+                <label for="dw-partner">Partner</label>
+              </span>
+              <span class="pill-item">
+                <input type="radio" id="dw-friends"    name="dining_with" value="Friends">
+                <label for="dw-friends">Friends</label>
+              </span>
+              <span class="pill-item">
+                <input type="radio" id="dw-family"     name="dining_with" value="Family">
+                <label for="dw-family">Family</label>
+              </span>
+              <span class="pill-item">
+                <input type="radio" id="dw-colleagues" name="dining_with" value="Colleagues">
+                <label for="dw-colleagues">Colleagues</label>
+              </span>
+              <span class="pill-item">
+                <input type="radio" id="dw-solo"       name="dining_with" value="Solo">
+                <label for="dw-solo">Solo</label>
+              </span>
+            </div>
+
+            <div class="fg">
+              <label for="rf-review">Your Review</label>
+              <textarea id="rf-review" name="review" placeholder="Tell us about your experience at Soraia…"></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Review</button>
+
+          </form>
+
+          <!-- Thank you state -->
+          <div class="form-thanks" id="form-thanks">
+            <span class="thanks-icon">✦</span>
+            <h4 class="thanks-heading">Thank You</h4>
+            <p class="thanks-sub">Your reflection has been received.<br>We are grateful for the time you took<br>to share your Soraia experience.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <svg class="footer-bg" viewBox="0 0 1300 500" fill="none" stroke="white" stroke-linecap="round" preserveAspectRatio="xMidYMid slice">
+    <use href="#botanical-card" transform="translate(-80,-60) scale(2.4)" stroke-width="0.4"/>
+    <use href="#botanical-card" transform="translate(760,-60) scale(2.4)" stroke-width="0.4"/>
+  </svg>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="soraia.webp" alt="Soraia" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">India's first modern Indian-European restaurant with an Omakase Bar</p>
+      </div>
+      <div>
+        <p class="footer-col-label">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="index.html#visit">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-label">Contact</p>
+        <p class="footer-contact">Mumbai, India<br>For reservations and inquiries</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Soraia Innercircle Hospitality LLP. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <span>Designed &amp; Developed by @Eigensu</span>
+        <span class="f-sep">|</span>
+        <a href="#">Privacy Policy</a>
+        <span class="f-sep">|</span>
+        <a href="#">Terms of Service</a>
+        <span class="f-sep">|</span>
+        <span>Powered by Eigensu</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('review-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('form-thanks').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

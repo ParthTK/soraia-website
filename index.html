@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soraia — India's First Modern Indian-European Glasshouse Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #1d3d2a;
+      --green-dark: #152d1e;
+      --green-card: #1c3828;
+      --cream:      #f0ebe0;
+      --cream-dark: #e2dccf;
+      --gold:       #c4965a;
+      --text-dark:  #1a3323;
+      --text-muted: #587060;
+      --text-light: #f0ebe0;
+      --sage:       #c4d0c4;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ══════════════ NAV ══════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--cream);
+      display: flex; align-items: center;
+      height: 56px; padding: 0 44px;
+    }
+    .nav-l, .nav-r { display: flex; align-items: center; gap: 36px; flex: 1; }
+    .nav-r { justify-content: flex-end; }
+    .nav-c { position: absolute; left: 50%; transform: translateX(-50%); }
+
+    .nav-link {
+      font-family: 'Cormorant SC', serif;
+      font-size: 11px; letter-spacing: .2em;
+      color: var(--text-dark); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-link:hover { color: var(--gold); }
+
+    .logo-mark { display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-logo  { height: 34px; display: block; object-fit: contain; }
+
+    .btn-book-nav {
+      font-family: 'Cormorant SC', serif;
+      font-size: 10px; letter-spacing: .2em;
+      color: var(--text-dark); border: 1.5px solid var(--text-dark);
+      padding: 9px 22px; text-decoration: none;
+      transition: background .2s, color .2s; white-space: nowrap;
+    }
+    .btn-book-nav:hover { background: var(--text-dark); color: var(--cream); }
+    .ig-icon { width: 18px; height: 18px; color: var(--text-dark); flex-shrink: 0; }
+
+    /* ══════════════ HERO ══════════════ */
+    #hero {
+      height: 100vh; min-height: 620px;
+      background-color: #1d3d2a;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Deep atmospheric gradients — shadows pooling in fabric folds */
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 58% at 62% 60%, rgba(5,14,8,.92) 0%, transparent 65%),
+        radial-gradient(ellipse 48% 44% at 20% 25%, rgba(4,12,7,.80) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 42% at 86% 18%, rgba(24,52,34,.55) 0%, transparent 52%),
+        radial-gradient(ellipse 38% 58% at 6%  80%, rgba(3,12,6,.70) 0%, transparent 50%),
+        radial-gradient(ellipse 42% 32% at 50% 8%,  rgba(24,56,36,.38) 0%, transparent 42%),
+        radial-gradient(ellipse 30% 30% at 90% 85%, rgba(3,12,6,.5)  0%, transparent 40%);
+    }
+
+    /* Coarse plaster-grain — soft-light gives the velvety depth */
+    .hero-grain-c {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.42 .36' numOctaves='4' seed='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>");
+      background-size: 550px 550px;
+      mix-blend-mode: soft-light;
+      opacity: .72;
+    }
+
+    /* Fine surface grain — overlay for micro-texture */
+    .hero-grain-f {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.78 .66' numOctaves='3' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
+      background-size: 260px 260px;
+      mix-blend-mode: overlay;
+      opacity: .38;
+    }
+
+    /* Corner botanicals */
+    .floral-tl { position: absolute; top: 0; left: 0; width: 280px; height: 280px; z-index: 1; opacity: .24; pointer-events: none; }
+    .floral-br { position: absolute; bottom: 0; right: 0; width: 280px; height: 280px; z-index: 1; opacity: .24; pointer-events: none; }
+
+    /* Tiny accent dots */
+    .hero-dot { position: absolute; border-radius: 50%; background: rgba(212,184,150,.6); z-index: 1; }
+
+    .hero-logo { position: relative; z-index: 2; display: flex; align-items: center; }
+    .hero-logo-img { height: 120px; display: block; object-fit: contain; filter: brightness(1.05); }
+
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 2;
+      width: 20px; height: 32px;
+      border: 1.5px solid rgba(212,184,150,.35); border-radius: 10px;
+      display: flex; align-items: flex-start; justify-content: center; padding-top: 6px;
+    }
+    .scroll-dot {
+      width: 4px; height: 8px; background: rgba(212,184,150,.65); border-radius: 2px;
+      animation: scrollDot 2s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0%,100% { opacity:1; transform:translateY(0); }
+      50%      { opacity:.3; transform:translateY(6px); }
+    }
+
+    /* ══════════════ ABOUT ══════════════ */
+    #about {
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      padding: 108px 100px 88px;
+      align-items: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* Botanical decorations on cream */
+    .cream-fl { position: absolute; z-index: 0; pointer-events: none; }
+    .cream-fl-tl { top: -20px; left: -20px; width: 340px; opacity: .12; }
+    .cream-fl-br { bottom: -20px; right: -20px; width: 260px; opacity: .1; }
+
+    .about-text { position: relative; z-index: 1; }
+
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 50px; font-weight: 400; line-height: 1.2; margin-bottom: 16px;
+    }
+
+    .rule { width: 44px; height: 1.5px; background: var(--gold); margin-bottom: 24px; }
+    .rule.center { margin-left: auto; margin-right: auto; }
+
+    .body-text {
+      font-size: 14.5px; line-height: 1.88;
+      color: var(--text-muted); font-weight: 300; font-style: italic;
+      margin-bottom: 14px;
+    }
+    .body-text a { color: var(--gold); text-decoration: none; }
+    .text-link   { color: #4a7a5e; }
+
+    /* Photo frame */
+    .about-img { position: relative; z-index: 1; }
+
+    .amb-outer {
+      background: var(--green);
+      padding: 22px;
+      outline: 1px solid rgba(196,150,90,.3);
+      outline-offset: -8px;
+    }
+    .amb-mat { background: var(--cream-dark); padding: 8px; }
+
+    /* 3-row ambience grid */
+    .amb-grid { display: flex; flex-direction: column; gap: 3px; }
+    .amb-top-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+    .amb-photo { overflow: hidden; }
+    .amb-top-row .amb-photo { height: 168px; }
+    .amb-band {
+      background: rgba(16,34,22,.78);
+      color: #fff;
+      font-family: 'Cormorant SC', serif;
+      font-size: 26px; letter-spacing: .46em;
+      text-align: center; padding: 14px 20px;
+    }
+    .amb-bottom { height: 148px; }
+
+    .amb-p1 { background: linear-gradient(148deg,#243c2c,#1a2d20,#0e1e14); position: relative; }
+    .amb-p1::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 65% 40% at 72% 72%, rgba(190,148,88,.14) 0%, transparent 70%); }
+    .amb-p2 { background: linear-gradient(148deg,#3a2e24,#291f18,#1e1810); position: relative; }
+    .amb-p2::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 50% 55% at 38% 38%, rgba(172,132,78,.12) 0%, transparent 70%); }
+    .amb-p-bot { background: linear-gradient(148deg,#222a20,#1a2218,#121812); position: relative; }
+    .amb-p-bot::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 50% at 50% 40%, rgba(210,168,100,.1) 0%, transparent 70%); }
+
+    /* ══════════════ EXPERIENCE ══════════════ */
+    #experience {
+      background: var(--cream);
+      padding: 80px 100px 40px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* Left monstera floral visible in the video */
+    .exp-fl-l { position: absolute; top: 50px; left: -20px; width: 300px; opacity: .12; z-index: 0; pointer-events: none; }
+    .exp-fl-r { position: absolute; bottom: 60px; right: -24px; width: 260px; opacity: .1; z-index: 0; pointer-events: none; }
+
+    .large-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 60px; font-weight: 400; margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+    .section-sub {
+      font-size: 14px; font-style: italic; color: var(--text-muted);
+      margin-bottom: 52px; position: relative; z-index: 1;
+    }
+
+    /* 3-card grid */
+    .exp-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+      position: relative; z-index: 1;
+    }
+
+    .exp-card {
+      border: 1px solid rgba(180,155,100,.32);
+      padding: 40px 28px 36px; text-align: left;
+      background: transparent;
+      transition: background .45s ease, border-color .45s ease;
+      position: relative; overflow: hidden;
+      cursor: default;
+    }
+
+    /* Botanical engraving overlay — hidden until hover */
+    .exp-card-bg {
+      position: absolute; inset: 0;
+      z-index: 0; opacity: 0;
+      transition: opacity .45s ease;
+      pointer-events: none;
+    }
+    .exp-card-bg svg { width: 100%; height: 100%; }
+
+    .exp-card > *:not(.exp-card-bg) { position: relative; z-index: 1; }
+
+    /* ─── GROUP HOVER: siblings go sage ─── */
+    .exp-grid:has(.exp-card:hover) .exp-card:not(:hover) {
+      background: var(--sage);
+      border-color: transparent;
+    }
+
+    /* ─── HOVERED CARD: dark green ─── */
+    .exp-card:hover {
+      background: var(--green-card);
+      border-color: transparent;
+    }
+    .exp-card:hover .exp-card-bg { opacity: .12; }
+    .exp-card:hover .exp-card-title { color: var(--text-light); }
+    .exp-card:hover .exp-card-desc  { color: rgba(240,235,224,.75); }
+
+    .exp-icon  { color: var(--gold); margin-bottom: 20px; transition: color .45s; }
+    .exp-card-title { font-size: 22px; font-weight: 500; margin-bottom: 10px; transition: color .45s; }
+    .exp-card-desc  { font-size: 13px; font-style: italic; color: var(--text-muted); line-height: 1.78; font-weight: 300; transition: color .45s; }
+
+    /* ══════════════ INFO CARDS ══════════════ */
+    .info-wrap { background: var(--cream); padding: 20px 100px 80px; }
+    .info-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .info-card { background: var(--green-card); padding: 48px 44px; position: relative; overflow: hidden; }
+    .info-card-bg { position: absolute; inset: 0; z-index: 0; opacity: .1; pointer-events: none; }
+    .info-card-body { position: relative; z-index: 1; }
+
+    .info-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--text-light); margin-bottom: 10px; }
+    .info-rule  { width: 36px; height: 1px; background: var(--gold); margin-bottom: 28px; }
+
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.08);
+      color: rgba(240,235,224,.88); font-size: 14px; font-style: italic;
+    }
+    .hours-row.hr-head {
+      font-family: 'Cormorant SC', serif; font-style: normal;
+      font-size: 12px; letter-spacing: .1em;
+      border-bottom-color: rgba(255,255,255,.15); padding-top: 0;
+    }
+    .hr-badge { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .22em; color: var(--gold); font-style: normal; }
+    .hr-time  { color: rgba(240,235,224,.6); }
+    .hr-dash  { color: rgba(240,235,224,.35); }
+
+    .dress-cat  { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em; color: var(--gold); margin-top: 22px; margin-bottom: 8px; }
+    .dress-cat:first-child { margin-top: 0; }
+    .dress-text { font-size: 13px; font-style: italic; color: rgba(240,235,224,.72); line-height: 1.8; }
+
+    /* ══════════════ RESERVATIONS BANNER ══════════════ */
+    .res-wrap { background: var(--cream); padding: 0 100px 80px; }
+    .res-banner {
+      background: var(--green-card); padding: 52px 64px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;
+      align-items: center; position: relative; overflow: hidden;
+    }
+    .res-banner-bg { position: absolute; inset: 0; z-index: 0; opacity: .08; pointer-events: none; }
+    .res-col { position: relative; z-index: 1; }
+    .res-title  { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-style: italic; color: var(--text-light); margin-bottom: 14px; }
+    .res-desc   { font-size: 13px; font-style: italic; color: rgba(240,235,224,.6); line-height: 1.85; }
+    .res-center { text-align: center; }
+    .res-label  { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .3em; color: var(--gold); margin-bottom: 10px; }
+    .res-phone  { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; color: var(--text-light); letter-spacing: .04em; }
+    .res-right  { text-align: right; font-size: 14px; font-style: italic; color: rgba(240,235,224,.6); }
+
+    /* ══════════════ VISIT US ══════════════ */
+    #visit {
+      background: var(--cream); padding: 80px 100px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: start; position: relative; overflow: hidden;
+    }
+    .visit-fl-l { position: absolute; top: 8%; left: -24px; width: 260px; opacity: .1; z-index: 0; pointer-events: none; }
+    .visit-fl-r { position: absolute; bottom: 0; right: 0; width: 200px; opacity: .08; z-index: 0; pointer-events: none; }
+    .visit-left, .visit-right { position: relative; z-index: 1; }
+
+    .visit-h2 { font-family: 'Cormorant Garamond', serif; font-size: 64px; font-weight: 400; margin-bottom: 10px; }
+    .contact-block { margin-top: 36px; }
+    .contact-block + .contact-block { margin-top: 28px; }
+    .contact-cat { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em; color: var(--text-muted); margin-bottom: 8px; }
+    .contact-text { font-size: 15.5px; font-style: italic; line-height: 1.65; }
+    .contact-row  { display: flex; justify-content: space-between; align-items: center; }
+
+    .res-card { background: var(--green-card); padding: 56px 44px; text-align: center; position: relative; overflow: hidden; }
+    .res-card-bg    { position: absolute; inset: 0; z-index: 0; opacity: .09; pointer-events: none; }
+    .res-card-inner { position: relative; z-index: 1; }
+    .res-card-script { font-family: 'Great Vibes', cursive; font-size: 72px; color: var(--text-light); margin-bottom: 28px; line-height: 1.2; }
+    .res-card-desc   { font-size: 14px; font-style: italic; color: rgba(240,235,224,.72); line-height: 1.82; margin-bottom: 40px; }
+    .btn-gold {
+      display: inline-block; background: var(--gold); color: #f0ebe0;
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .28em;
+      padding: 16px 52px; text-decoration: none; transition: background .2s;
+    }
+    .btn-gold:hover { background: #a87840; }
+
+    /* ══════════════ FOOTER ══════════════ */
+    footer { background: var(--green-dark); padding: 80px 100px 36px; position: relative; overflow: hidden; }
+    .footer-bg { position: absolute; inset: 0; z-index: 0; opacity: .06; pointer-events: none; }
+    .footer-inner { position: relative; z-index: 1; }
+
+    .footer-top {
+      display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 60px;
+      padding-bottom: 48px; margin-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand { display: flex; align-items: center; margin-bottom: 14px; }
+    .footer-logo-img { height: 52px; display: block; object-fit: contain; }
+    .footer-tagline { font-size: 13px; font-style: italic; color: rgba(240,235,224,.44); line-height: 1.72; max-width: 260px; }
+
+    .footer-col-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em; color: rgba(240,235,224,.38); margin-bottom: 22px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 16px; font-style: italic; color: rgba(240,235,224,.64); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-contact { font-size: 14px; font-style: italic; color: rgba(240,235,224,.64); line-height: 1.8; }
+
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .06em; color: rgba(240,235,224,.26); }
+    .footer-bottom-links { display: flex; align-items: center; gap: 18px; }
+    .footer-bottom-links a { color: rgba(240,235,224,.26); text-decoration: none; transition: color .2s; }
+    .footer-bottom-links a:hover { color: rgba(240,235,224,.5); }
+    .f-sep { color: rgba(240,235,224,.14); }
+  </style>
+</head>
+<body>
+
+<!-- Shared botanical SVG definitions -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="botanical-card" viewBox="0 0 500 380" fill="none" stroke="white" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="250" cy="190" r="8"/><circle cx="250" cy="190" r="4"/>
+      <path d="M247 182C239 158 235 126 238 94 244 124 247 156 247 182Z"/>
+      <path d="M253 182C261 158 265 126 262 94 256 124 253 156 253 182Z"/>
+      <path d="M257 186C276 172 296 154 314 130 296 156 277 174 257 186Z"/>
+      <path d="M259 192C282 190 308 188 334 192 308 200 282 200 259 192Z"/>
+      <path d="M257 198C276 218 296 240 314 266 296 242 277 220 257 198Z"/>
+      <path d="M253 202C261 228 265 258 262 290 256 260 253 228 253 202Z"/>
+      <path d="M247 202C239 228 235 258 238 290 244 260 247 228 247 202Z"/>
+      <path d="M243 198C224 218 204 240 186 266 204 242 223 220 243 198Z"/>
+      <path d="M241 192C218 190 192 188 166 192 192 200 218 200 241 192Z"/>
+      <path d="M243 186C224 172 204 154 186 130 204 156 223 174 243 186Z"/>
+      <path d="M244 202C220 242 190 285 158 318"/>
+      <path d="M190 278C178 264 162 258 153 269 163 272 177 276 190 278Z"/>
+      <path d="M190 278C186 292 190 306 202 310 195 298 190 288 190 278Z"/>
+      <path d="M256 202C275 242 296 282 310 318"/>
+      <path d="M290 282C300 270 310 266 318 275 310 278 300 282 290 282Z"/>
+      <circle cx="72" cy="72" r="5"/><circle cx="72" cy="72" r="2.5"/>
+      <path d="M70 67C64 54 62 36 65 18 68 36 70 54 70 67Z"/>
+      <path d="M74 67C80 54 82 36 79 18 76 36 74 54 74 67Z"/>
+      <path d="M77 72C90 65 106 60 124 62 106 69 90 72 77 72Z"/>
+      <path d="M67 72C54 65 38 60 20 62 38 69 54 72 67 72Z"/>
+      <path d="M74 77C91 99 106 128 110 160"/>
+      <path d="M72 77C60 66 50 50 44 32"/>
+      <path d="M70 77C58 100 50 128 52 158"/>
+      <circle cx="438" cy="88" r="4.5"/>
+      <path d="M436 84C430 72 428 54 431 36 434 54 436 72 436 84Z"/>
+      <path d="M440 84C446 72 448 54 445 36 442 54 440 72 440 84Z"/>
+      <path d="M443 88C454 82 468 78 484 80 468 87 454 88 443 88Z"/>
+      <path d="M433 88C422 82 408 78 392 80 408 87 422 88 433 88Z"/>
+      <path d="M440 93C454 112 462 136 460 162"/>
+      <path d="M438 93C424 110 410 132 405 158"/>
+      <path d="M388 300C372 284 354 278 345 290 356 294 372 298 388 300Z"/>
+      <path d="M388 300C382 314 386 330 398 335 391 320 387 309 388 300Z"/>
+      <path d="M388 300C402 286 408 268 403 250 396 266 390 284 388 300Z"/>
+      <path d="M252 192C252 192 275 220 288 260 295 280 292 310 280 330"/>
+      <circle cx="150" cy="342" r="2" fill="white" stroke="none"/>
+      <circle cx="342" cy="58"  r="1.5" fill="white" stroke="none"/>
+      <circle cx="48"  cy="240" r="1.5" fill="white" stroke="none"/>
+      <circle cx="468" cy="280" r="2" fill="white" stroke="none"/>
+    </symbol>
+
+    <!-- Monstera-style leaf for cream sections -->
+    <symbol id="monstera-leaf" viewBox="0 0 320 440" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M160 420C130 380 90 330 70 270 50 210 55 145 80 100 100 65 130 45 160 40 190 45 220 65 240 100 265 145 270 210 250 270 230 330 190 380 160 420Z" stroke-width="0.8"/>
+      <path d="M160 420C140 370 120 310 115 250 110 190 120 130 145 90" stroke-width="0.7"/>
+      <path d="M160 420C180 370 200 310 205 250 210 190 200 130 175 90" stroke-width="0.7"/>
+      <!-- Fenestrations (holes) -->
+      <ellipse cx="120" cy="200" rx="18" ry="28" transform="rotate(-15 120 200)" stroke-width="0.6"/>
+      <ellipse cx="200" cy="200" rx="18" ry="28" transform="rotate(15 200 200)" stroke-width="0.6"/>
+      <ellipse cx="138" cy="290" rx="14" ry="22" transform="rotate(-10 138 290)" stroke-width="0.6"/>
+      <ellipse cx="182" cy="290" rx="14" ry="22" transform="rotate(10 182 290)" stroke-width="0.6"/>
+      <ellipse cx="160" cy="350" rx="12" ry="18" stroke-width="0.6"/>
+      <!-- Midrib -->
+      <path d="M160 420 L160 40" stroke-width="0.55"/>
+      <!-- Veins -->
+      <path d="M160 150 C140 140 118 128 95 118" stroke-width="0.5"/>
+      <path d="M160 150 C180 140 202 128 225 118" stroke-width="0.5"/>
+      <path d="M160 230 C135 218 108 208 82 204" stroke-width="0.5"/>
+      <path d="M160 230 C185 218 212 208 238 204" stroke-width="0.5"/>
+      <path d="M160 310 C140 300 118 294 96 292" stroke-width="0.5"/>
+      <path d="M160 310 C180 300 202 294 224 292" stroke-width="0.5"/>
+      <!-- Stem at bottom -->
+      <path d="M160 420 L160 440" stroke-width="1.2"/>
+    </symbol>
+
+    <!-- Florals used across sections -->
+    <symbol id="fl-tl" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="188" cy="188" r="5.5"/><circle cx="188" cy="188" r="2.5"/>
+      <path d="M186 182C178 160 170 130 174 100 179 128 184 158 186 182Z" stroke-width="0.8"/>
+      <path d="M190 182C198 160 206 130 202 100 197 128 192 158 190 182Z" stroke-width="0.8"/>
+      <path d="M193 185C208 168 226 148 248 130 228 150 210 170 193 185Z" stroke-width="0.8"/>
+      <path d="M195 190C218 188 244 186 270 190 244 198 218 198 195 190Z" stroke-width="0.8"/>
+      <path d="M193 195C208 215 226 238 248 258 228 240 210 218 193 195Z" stroke-width="0.8"/>
+      <path d="M190 198C198 222 206 250 202 278 197 252 192 222 190 198Z" stroke-width="0.8"/>
+      <path d="M186 198C178 222 170 250 174 278 179 252 184 222 186 198Z" stroke-width="0.8"/>
+      <path d="M183 195C168 215 150 238 128 258 148 240 166 218 183 195Z" stroke-width="0.8"/>
+      <path d="M181 190C158 188 132 186 106 190 132 198 158 198 181 190Z" stroke-width="0.8"/>
+      <path d="M183 185C168 168 150 148 128 130 148 150 166 170 183 185Z" stroke-width="0.8"/>
+      <path d="M184 198C162 232 132 268 98 295" stroke-width="0.7"/>
+      <path d="M140 252C128 238 113 233 105 244 115 247 128 250 140 252Z" stroke-width="0.7"/>
+      <circle cx="76" cy="82" r="3.5"/><circle cx="76" cy="82" r="1.5"/>
+      <path d="M74 78C68 65 66 47 69 29 72 47 74 65 74 78Z" stroke-width="0.7"/>
+      <path d="M78 78C84 65 86 47 83 29 80 47 78 65 78 78Z" stroke-width="0.7"/>
+      <path d="M80 82C92 76 108 72 126 74 108 80 92 82 80 82Z" stroke-width="0.7"/>
+      <path d="M72 82C60 76 44 72 26 74 44 80 60 82 72 82Z" stroke-width="0.7"/>
+      <path d="M78 86C100 118 136 152 182 186" stroke-width="0.6"/>
+      <circle cx="220" cy="84" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="140" cy="48" r="1.2" fill="currentColor" stroke="none"/>
+      <circle cx="52"  cy="148" r="1" fill="currentColor" stroke="none"/>
+    </symbol>
+
+    <symbol id="fl-br" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="112" cy="112" r="5"/><circle cx="112" cy="112" r="2.5"/>
+      <path d="M110 106C102 84 98 54 102 24 107 52 110 82 110 106Z" stroke-width="0.8"/>
+      <path d="M114 106C122 84 126 54 122 24 117 52 114 82 114 106Z" stroke-width="0.8"/>
+      <path d="M117 110C132 92 150 72 172 54 152 74 134 94 117 110Z" stroke-width="0.8"/>
+      <path d="M119 116C142 114 168 112 194 116 168 124 142 124 119 116Z" stroke-width="0.8"/>
+      <path d="M117 122C132 142 150 166 172 188 152 168 134 144 117 122Z" stroke-width="0.8"/>
+      <path d="M114 126C122 150 126 180 122 210 117 182 114 150 114 126Z" stroke-width="0.8"/>
+      <path d="M110 126C102 150 98 180 102 210 107 182 110 150 110 126Z" stroke-width="0.8"/>
+      <path d="M107 122C92 142 74 166 52 188 72 168 90 144 107 122Z" stroke-width="0.8"/>
+      <path d="M105 116C82 114 56 112 30 116 56 124 82 124 105 116Z" stroke-width="0.8"/>
+      <path d="M107 110C92 92 74 72 52 54 72 74 90 94 107 110Z" stroke-width="0.8"/>
+      <path d="M112 126C92 162 68 208 48 258" stroke-width="0.7"/>
+      <path d="M78 202C66 188 50 183 42 194 52 197 66 200 78 202Z" stroke-width="0.7"/>
+      <circle cx="220" cy="210" r="3.5"/>
+      <path d="M218 206C212 193 210 175 213 157 216 175 218 193 218 206Z" stroke-width="0.7"/>
+      <path d="M222 206C228 193 230 175 227 157 224 175 222 193 222 206Z" stroke-width="0.7"/>
+      <path d="M224 210C236 204 252 200 270 202 252 208 236 210 224 210Z" stroke-width="0.7"/>
+      <path d="M216 210C204 204 188 200 170 202 188 208 204 210 216 210Z" stroke-width="0.7"/>
+      <circle cx="62"  cy="220" r="2" fill="currentColor" stroke="none"/>
+      <circle cx="240" cy="140" r="1.2" fill="currentColor" stroke="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav>
+  <div class="nav-l">
+    <a href="https://instagram.com/soraia.in" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a href="#about"      class="nav-link">About</a>
+    <a href="#experience" class="nav-link">Experience</a>
+  </div>
+  <div class="nav-c">
+    <a href="#hero" class="logo-mark">
+      <img src="soraia.webp" alt="Soraia" class="nav-logo">
+    </a>
+  </div>
+  <div class="nav-r">
+    <a href="menu.html"    class="nav-link">Menu</a>
+    <a href="reviews.html" class="nav-link">Reviews</a>
+    <a href="#visit"       class="nav-link">Contact</a>
+    <a href="#visit"       class="btn-book-nav">Book Now</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-grain-c"></div>
+  <div class="hero-grain-f"></div>
+
+  <!-- Top-left floral -->
+  <svg class="floral-tl" viewBox="0 0 300 300" fill="none" stroke="#d4b896" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-tl" stroke="#d4b896" stroke-width="0.8"/>
+  </svg>
+
+  <!-- Bottom-right floral -->
+  <svg class="floral-br" viewBox="0 0 300 300" fill="none" stroke="#d4b896" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-br" stroke="#d4b896" stroke-width="0.8"/>
+  </svg>
+
+  <!-- Scatter dots -->
+  <div class="hero-dot" style="width:3px;height:3px;top:21%;left:17%"></div>
+  <div class="hero-dot" style="width:2px;height:2px;top:37%;left:73%"></div>
+  <div class="hero-dot" style="width:2.5px;height:2.5px;top:66%;left:28%;opacity:.45"></div>
+  <div class="hero-dot" style="width:2px;height:2px;top:57%;left:59%;opacity:.38"></div>
+  <div class="hero-dot" style="width:3px;height:3px;top:13%;left:63%;opacity:.55"></div>
+
+  <div class="hero-logo">
+    <img src="soraia.webp" alt="Soraia" class="hero-logo-img">
+  </div>
+
+  <div class="scroll-hint"><div class="scroll-dot"></div></div>
+</section>
+
+<!-- ══════════════════════════════ ABOUT ══════════════════════════════ -->
+<section id="about">
+  <!-- cream florals -->
+  <svg class="cream-fl cream-fl-tl" viewBox="0 0 300 300" fill="none" stroke="#8a7050" stroke-linecap="round"><use href="#fl-tl" stroke-width="0.75"/></svg>
+  <svg class="cream-fl cream-fl-br" viewBox="0 0 300 300" fill="none" stroke="#8a7050" stroke-linecap="round"><use href="#fl-br" stroke-width="0.7"/></svg>
+
+  <div class="about-text">
+    <h2 class="section-heading">A Harmonious<br>Experience</h2>
+    <div class="rule"></div>
+    <p class="body-text">
+      Created <a href="#" class="text-link">by</a> Dhaval Udeshi, Afsana Verma, and Amit Verma,
+      <a href="#" class="text-link">with</a> design <a href="#" class="text-link">by</a> Gauri Khan,
+      Soraia features Mumbai's first glasshouse restaurant and cuisine
+      <a href="#" class="text-link">by</a> Chef Hitesh Shanbhag
+      <a href="#" class="text-link">that</a> reimagines Indian flavors through European technique.
+    </p>
+    <p class="body-text">
+      Its "Mélange India" bar <a href="#" class="text-link">offers</a> region-inspired cocktails,
+      making Soraia a harmonious experience where <a href="#" class="text-link">culture</a>,
+      craft, and curiosity meet under the stars.
+    </p>
+  </div>
+
+  <!-- Photo collage -->
+  <div class="about-img">
+    <div class="amb-outer">
+      <div class="amb-mat">
+        <div class="amb-grid">
+          <div class="amb-top-row">
+            <div class="amb-photo amb-p1"></div>
+            <div class="amb-photo amb-p2"></div>
+          </div>
+          <div class="amb-band">AMBIENCE</div>
+          <div class="amb-photo amb-bottom amb-p-bot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ THE EXPERIENCE ══════════════════════════ -->
+<section id="experience">
+  <!-- Monstera left floral -->
+  <svg class="exp-fl-l" viewBox="0 0 320 440" fill="none" stroke="#8a7050" stroke-linecap="round">
+    <use href="#monstera-leaf" stroke-width="0.75"/>
+  </svg>
+  <!-- Right botanical -->
+  <svg class="exp-fl-r" viewBox="0 0 300 300" fill="none" stroke="#8a7050" stroke-linecap="round">
+    <use href="#fl-br" stroke-width="0.65"/>
+  </svg>
+
+  <h2 class="large-title">The Experience</h2>
+  <div class="rule center"></div>
+  <p class="section-sub">Discover the unique elements that make Soraia an unforgettable destination</p>
+
+  <div class="exp-grid">
+
+    <!-- Card 1: Glasshouse dining -->
+    <div class="exp-card">
+      <div class="exp-card-bg">
+        <svg viewBox="0 0 500 380" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" stroke-width="0.55"/></svg>
+      </div>
+      <div class="exp-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 22V14L14 6L24 14V22"/><rect x="10" y="16" width="8" height="6"/>
+          <path d="M2 22H26"/><path d="M9 11H12M16 11H19"/>
+        </svg>
+      </div>
+      <h3 class="exp-card-title">Glasshouse dining</h3>
+      <p class="exp-card-desc">Mumbai's first glasshouse restaurant offering an immersive dining experience under the stars</p>
+    </div>
+
+    <!-- Card 2: Omakase Bar -->
+    <div class="exp-card">
+      <div class="exp-card-bg">
+        <svg viewBox="0 0 500 380" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" stroke-width="0.55"/></svg>
+      </div>
+      <div class="exp-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="14" y1="2" x2="14" y2="8"/><line x1="10" y1="3" x2="10" y2="8"/><line x1="18" y1="3" x2="18" y2="8"/>
+          <path d="M10 8C10 14 8 18 8 22C8 24 10 26 14 26C18 26 20 24 20 22C20 18 18 14 18 8Z"/>
+          <line x1="10" y1="18" x2="18" y2="18"/>
+        </svg>
+      </div>
+      <h3 class="exp-card-title">Omakase Bar</h3>
+      <p class="exp-card-desc">An exclusive chef-curated experience blending Indian and European culinary artistry</p>
+    </div>
+
+    <!-- Card 3: Mélange India Bar -->
+    <div class="exp-card">
+      <div class="exp-card-bg">
+        <svg viewBox="0 0 500 380" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" stroke-width="0.55"/></svg>
+      </div>
+      <div class="exp-icon">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 4H18L20 10C20 14 18 16 14 16C10 16 8 14 8 10Z"/>
+          <line x1="14" y1="16" x2="14" y2="20"/><path d="M10 20H18"/>
+          <path d="M9 23C9 23 11 26 14 26C17 26 19 23 19 23"/>
+          <line x1="8" y1="8" x2="6" y2="8"/><line x1="20" y1="8" x2="22" y2="8"/>
+        </svg>
+      </div>
+      <h3 class="exp-card-title">Mélange India Bar</h3>
+      <p class="exp-card-desc">Region-inspired cocktails crafted with indigenous ingredients and modern techniques</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════ INFO CARDS ══════════════════════════ -->
+<div class="info-wrap">
+  <div class="info-row">
+
+    <!-- Opening Hours -->
+    <div class="info-card">
+      <svg class="info-card-bg" viewBox="0 0 500 380" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" stroke-width="0.55"/></svg>
+      <div class="info-card-body">
+        <h3 class="info-title">Opening Hours</h3>
+        <div class="info-rule"></div>
+        <div class="hours-row hr-head"><span>Monday – Sunday</span><span class="hr-badge">OPEN</span></div>
+        <div class="hours-row"><span>Breakfast</span><span class="hr-dash">—</span></div>
+        <div class="hours-row"><span>Lunch</span><span class="hr-time">12pm – 4pm</span></div>
+        <div class="hours-row"><span>Dinner</span><span class="hr-time">7pm – 1am</span></div>
+      </div>
+    </div>
+
+    <!-- Dress Code -->
+    <div class="info-card">
+      <svg class="info-card-bg" viewBox="0 0 500 380" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" stroke-width="0.55"/></svg>
+      <div class="info-card-body">
+        <h3 class="info-title">The Dress Code</h3>
+        <div class="info-rule"></div>
+        <div class="dress-cat">Attire</div>
+        <p class="dress-text">A polished, elegant look is encouraged at all times. Tailored jackets, collared shirts, and refined silhouettes set the tone for an intimate, elevated dining experience.</p>
+        <div class="dress-cat">Footwear &amp; Accessories</div>
+        <p class="dress-text">Closed-toe dress shoes are preferred; minimalist accessories complement the ambience. Athletic wear, flip-flops, and overly casual attire are not in keeping with our setting.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════ RESERVATIONS ══════════════════════════ -->
+<div class="res-wrap">
+  <div class="res-banner">
+    <svg class="res-banner-bg" viewBox="0 0 900 200" fill="none" stroke="white" stroke-linecap="round">
+      <use href="#botanical-card" transform="translate(-100,-90) scale(1.8)" stroke-width="0.45"/>
+    </svg>
+    <div class="res-col">
+      <p class="res-title">Make Reservations</p>
+      <p class="res-desc">For table bookings and private dining inquiries, connect directly with our team. We will help you plan a thoughtful dining experience.</p>
+    </div>
+    <div class="res-col res-center">
+      <p class="res-label">Private Concierge</p>
+      <p class="res-phone">+91 90049 83000</p>
+    </div>
+    <div class="res-col res-right">
+      <p>Eager to reserve?<br>Message us.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ VISIT US ══════════════════════════ -->
+<section id="visit">
+  <svg class="visit-fl-l" viewBox="0 0 320 440" fill="none" stroke="#8a7050"><use href="#monstera-leaf" stroke-width="0.7"/></svg>
+  <svg class="visit-fl-r" viewBox="0 0 300 300" fill="none" stroke="#8a7050"><use href="#fl-tl" stroke-width="0.65"/></svg>
+
+  <div class="visit-left">
+    <h2 class="visit-h2">Visit Us</h2>
+    <div class="rule"></div>
+    <div class="contact-block">
+      <p class="contact-cat">Location</p>
+      <p class="contact-text">Mumbai, India<br>A destination for refined dining</p>
+    </div>
+    <div class="contact-block">
+      <p class="contact-cat">Reservations</p>
+      <div class="contact-row">
+        <span class="contact-text">Party enquiry</span>
+        <span class="contact-text">+91 90049 58000</span>
+      </div>
+    </div>
+    <div class="contact-block">
+      <p class="contact-cat">Connect</p>
+      <a href="https://instagram.com/soraia.in" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-dark)">
+          <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="visit-right">
+    <div class="res-card">
+      <svg class="res-card-bg" viewBox="0 0 500 480" fill="none" stroke="white" stroke-linecap="round"><use href="#botanical-card" transform="translate(0 50) scale(1.0)" stroke-width="0.55"/></svg>
+      <div class="res-card-inner">
+        <p class="res-card-script">Reservation</p>
+        <p class="res-card-desc">Experience the essence of Soraia. We recommend booking in advance to ensure your preferred seating arrangements.</p>
+        <a href="#" class="btn-gold">Book Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <svg class="footer-bg" viewBox="0 0 1300 500" fill="none" stroke="white" stroke-linecap="round">
+    <use href="#botanical-card" transform="translate(-80,-60) scale(2.4)" stroke-width="0.4"/>
+    <use href="#botanical-card" transform="translate(760,-60) scale(2.4)" stroke-width="0.4"/>
+  </svg>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="soraia.webp" alt="Soraia" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">India's first modern Indian-European restaurant with an Omakase Bar</p>
+      </div>
+      <div>
+        <p class="footer-col-label">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#visit">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-label">Contact</p>
+        <p class="footer-contact">Mumbai, India<br>For reservations and inquiries</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Soraia Innercircle Hospitality LLP. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <span>Designed &amp; Developed by @Eigensu</span>
+        <span class="f-sep">|</span>
+        <a href="#">Privacy Policy</a>
+        <span class="f-sep">|</span>
+        <a href="#">Terms of Service</a>
+        <span class="f-sep">|</span>
+        <span>Powered by Eigensu</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
