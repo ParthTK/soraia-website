@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reviews — Soraia</title>
+  <link rel="icon" href="tab-logo.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -11,9 +12,9 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green:      #1d3d2a;
-      --green-dark: #152d1e;
-      --green-card: #1c3828;
+      --green:      #183222;
+      --green-dark: #112219;
+      --green-card: #162B1E;
       --cream:      #f0ebe0;
       --cream-dark: #e2dccf;
       --gold:       #c4965a;
@@ -52,7 +53,8 @@
     nav.nav-solid .nav-link.active { color: var(--gold); }
     nav.nav-solid .nav-link:hover { color: var(--gold); }
     .logo-mark { display: inline-flex; align-items: center; text-decoration: none; }
-    .nav-logo  { height: 34px; display: block; object-fit: contain; }
+    .nav-logo  { height: 34px; display: block; object-fit: contain; transition: filter .32s ease; }
+    nav.nav-solid .nav-logo { filter: brightness(0) saturate(100%) invert(17%) sepia(32%) saturate(720%) hue-rotate(114deg) brightness(94%) contrast(93%); }
     .btn-book-nav {
       font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .2em;
       color: rgba(240,235,224,.82); border: 1.5px solid rgba(240,235,224,.32);
@@ -222,11 +224,29 @@
     .rc-stars span { font-size: 13px; color: var(--gold); }
     .rc-stars .s-empty { color: var(--cream-dark); }
 
-    .rc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .rc-loading, .rc-empty {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 16px; color: var(--text-muted); padding: 40px 0; text-align: center;
+    }
+    .rc-fresh {
+      display: inline-block; font-family: 'Cormorant SC', serif;
+      font-size: 8px; letter-spacing: .15em; color: var(--gold);
+      border: 1px solid var(--gold); padding: 1px 6px; margin-left: 8px;
+      vertical-align: middle; position: relative; top: -1px;
+    }
+    .rc-stars .s-empty { color: rgba(26,51,35,.18); }
+    .rc-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
     .rc-tag {
-      font-family: 'Cormorant SC', serif; font-size: 9px; letter-spacing: .18em;
-      color: var(--text-muted); border: 1px solid rgba(26,51,35,.18);
-      padding: 3px 11px;
+      font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: .18em;
+      color: var(--text-muted); border: 1px solid rgba(26,51,35,.22);
+      padding: 6px 16px; background: none; cursor: pointer;
+      transition: background .18s, color .18s, border-color .18s;
+    }
+    .rc-tag:hover {
+      background: var(--green); color: var(--cream); border-color: var(--green);
+    }
+    .rc-tag.active {
+      background: var(--green); color: var(--cream); border-color: var(--green);
     }
 
     .rc-text {
@@ -649,123 +669,8 @@
         </div>
       </div>
 
-      <!-- ── Review Cards ── -->
-      <div class="reviews-list">
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">H</div>
-            <div class="rc-meta">
-              <span class="rc-name">Hisandhercravings</span>
-              <span class="rc-date">2 weeks ago · Dining with Partner</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Ambience</span>
-            <span class="rc-tag">Service</span>
-          </div>
-          <p class="rc-text">Last evening, I took Payal out for a sundowner date, looking for a place with good vibes, great food, and a setting that feels elevated yet relaxed. Soraia delivered on every front. The rooftop ambience at dusk is simply spectacular — the light, the greenery, the quiet luxury of it all. Service was warm without being intrusive, and the tasting menu felt like a genuine culinary journey. Both classic and brilliantly surprising.</p>
-        </article>
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">U</div>
-            <div class="rc-meta">
-              <span class="rc-name">Urmi Chhapia</span>
-              <span class="rc-date">2 weeks ago · Dining with Friends</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Service</span>
-            <span class="rc-tag">Drinks</span>
-          </div>
-          <p class="rc-text">Soraia is a very pretty restaurant with panoramic views across the city. The food and cocktails are excellent — each plate arrived with a story and each cocktail was a composition in itself. The staff are courteous and attentive without hovering. The Omakase Bar experience is unlike anything else in Mumbai, and I say that as someone who has been to most of the city's fine-dining establishments.</p>
-        </article>
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">A</div>
-            <div class="rc-meta">
-              <span class="rc-name">Adttya Verma</span>
-              <span class="rc-date">1 month ago · Dining with Family</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span class="s-empty">★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Ambience</span>
-          </div>
-          <p class="rc-text">A truly elevated experience. The botanical interiors make you feel transported to another era entirely. Every course was thoughtfully composed and I particularly loved the Indian-European fusion approach — familiar flavours reimagined with genuine restraint and technique. Would strongly recommend the omakase format for a special occasion. The only small note: parking on a weekend evening can be a challenge.</p>
-        </article>
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">P</div>
-            <div class="rc-meta">
-              <span class="rc-name">Priya Mehta</span>
-              <span class="rc-date">6 weeks ago · Anniversary dinner</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Service</span>
-            <span class="rc-tag">Ambience</span>
-            <span class="rc-tag">Drinks</span>
-          </div>
-          <p class="rc-text">Perfect anniversary dinner. The attention to detail — from the candlelit table setting to the handwritten seasonal menu — was impeccable throughout. Chef's pairings showed genuine mastery and the cocktail programme is inventive without being gimmicky. The team even arranged a small personalised dessert as a surprise. We will absolutely be back, and have already recommended Soraia to everyone we know.</p>
-        </article>
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">R</div>
-            <div class="rc-meta">
-              <span class="rc-name">Rahul Joshi</span>
-              <span class="rc-date">2 months ago · Solo</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Service</span>
-            <span class="rc-tag">Atmosphere</span>
-          </div>
-          <p class="rc-text">Worth every rupee. The service is gracious without being stiff and there is a warmth to this place that simply cannot be manufactured. The food has real soul — deeply rooted in Indian flavour memory but completely open to European technique and sensibility. Sitting at the omakase bar solo was one of the more memorable dining experiences I have had in this city. This is what fine dining in Mumbai should feel like.</p>
-        </article>
-
-        <article class="review-card">
-          <div class="rc-top">
-            <div class="rc-avatar">S</div>
-            <div class="rc-meta">
-              <span class="rc-name">Sanjana Rao</span>
-              <span class="rc-date">3 months ago · Dining with Colleagues</span>
-            </div>
-            <div class="rc-stars">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>
-          <div class="rc-tags">
-            <span class="rc-tag">Food</span>
-            <span class="rc-tag">Ambience</span>
-            <span class="rc-tag">Drinks</span>
-          </div>
-          <p class="rc-text">We came for a team dinner and Soraia exceeded every expectation. The private dining setup was elegant without feeling corporate, and the chef's custom menu for the evening was a genuine conversation piece. Each course sparked discussion and delight in equal measure. The botanical wine list is thoughtfully curated and the sommelier's pairings were inspired. A restaurant with a distinct point of view — rare and refreshing.</p>
-        </article>
-
+      <!-- ── Review Cards (rendered by JS) ── -->
+      <div class="reviews-list" id="reviews-list">
       </div>
     </div>
 
@@ -922,12 +827,7 @@
 </footer>
 
 <script>
-  document.getElementById('review-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    this.style.display = 'none';
-    document.getElementById('form-thanks').style.display = 'block';
-  });
-
+  /* ── Nav scroll + hamburger ── */
   (function(){
     var nav=document.querySelector('nav'),burger=document.querySelector('.nav-burger'),panel=document.querySelector('.nav-mobile-panel');
     function updateNav(){nav.classList.toggle('nav-solid',window.scrollY>40);}
@@ -937,6 +837,115 @@
       panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){panel.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false);});});
     }
   })();
+
+  /* ── Review rendering ── */
+  (function(){
+    function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+
+    function timeAgo(iso){
+      var d=Date.now()-new Date(iso).getTime(),m=Math.floor(d/60000);
+      if(m<2)return'Just now';
+      if(m<60)return m+' minutes ago';
+      var h=Math.floor(m/60);if(h<24)return h+(h>1?' hours':' hour')+' ago';
+      var dy=Math.floor(h/24);if(dy<7)return dy+(dy>1?' days':' day')+' ago';
+      var w=Math.floor(dy/7);if(w<5)return w+(w>1?' weeks':' week')+' ago';
+      var mo=Math.floor(dy/30);if(mo<12)return mo+(mo>1?' months':' month')+' ago';
+      var yr=Math.floor(mo/12);return yr+(yr>1?' years':' year')+' ago';
+    }
+
+    function filterReviews(reviews){
+      var twoH=2*60*60*1000,now=Date.now();
+      var fresh=reviews.filter(function(r){return now-new Date(r.submitted_at)<twoH;})
+                       .sort(function(a,b){return new Date(b.submitted_at)-new Date(a.submitted_at);});
+      var aged=reviews.filter(function(r){return now-new Date(r.submitted_at)>=twoH;})
+                      .sort(function(a,b){return new Date(b.submitted_at)-new Date(a.submitted_at);});
+
+      var fives=aged.filter(function(r){return r.rating===5;});
+      var lo34=shuffle(aged.filter(function(r){return r.rating===3||r.rating===4;}));
+      var lo2=shuffle(aged.filter(function(r){return r.rating===2;}));
+
+      var out=[],next34=rand(10,15),next2=30,fc=0,i34=0,i2=0;
+      fives.forEach(function(r){
+        out.push(r);fc++;
+        if(fc>=next34&&i34<lo34.length){
+          out.push(lo34[i34++]);
+          if(Math.random()>0.5&&i34<lo34.length)out.push(lo34[i34++]);
+          next34=fc+rand(10,15);
+        }
+        if(fc>=next2&&i2<lo2.length){out.push(lo2[i2++]);next2=fc+30;}
+      });
+      return fresh.concat(out);
+    }
+
+    function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+    function starsHtml(n){
+      var h='';for(var i=1;i<=5;i++)h+='<span'+(i>n?' class="s-empty"':'')+'>★</span>';return h;
+    }
+
+    function renderCard(r,isFresh){
+      var av=r.name.charAt(0).toUpperCase();
+      var dw=r.dining_with?(r.dining_with==='Solo'?'Solo':'Dining with '+r.dining_with):'';
+      var sub=[timeAgo(r.submitted_at),dw].filter(Boolean).join(' · ');
+      var tags=(r.highlights||[]).map(function(h){return'<button class="rc-tag">'+esc(h)+'</button>';}).join('');
+      var badge=isFresh?'<span class="rc-fresh">New</span>':'';
+      return'<article class="review-card">'+
+        '<div class="rc-top">'+
+          '<div class="rc-avatar">'+av+'</div>'+
+          '<div class="rc-meta">'+
+            '<span class="rc-name">'+esc(r.name)+badge+'</span>'+
+            '<span class="rc-date">'+sub+'</span>'+
+          '</div>'+
+          '<div class="rc-stars">'+starsHtml(r.rating)+'</div>'+
+        '</div>'+
+        (tags?'<div class="rc-tags">'+tags+'</div>':'')+
+        '<p class="rc-text">'+esc(r.review)+'</p>'+
+      '</article>';
+    }
+
+    var list=document.getElementById('reviews-list');
+    if(!list)return;
+    list.innerHTML='<div class="rc-loading">Loading reflections…</div>';
+
+    fetch('/api/reviews').then(function(r){return r.json();}).then(function(reviews){
+      var twoH=2*60*60*1000,now=Date.now();
+      var freshIds={};
+      reviews.forEach(function(r){if(now-new Date(r.submitted_at)<twoH)freshIds[r.id]=true;});
+      var toShow=filterReviews(reviews);
+      if(!toShow.length){list.innerHTML='<p class="rc-empty">Be the first to share your Soraia experience.</p>';return;}
+      list.innerHTML=toShow.map(function(r){return renderCard(r,!!freshIds[r.id]);}).join('');
+    }).catch(function(){
+      list.innerHTML='<p class="rc-empty">Reviews are temporarily unavailable.</p>';
+    });
+  })();
+
+  /* ── Form submission ── */
+  document.getElementById('review-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var btn=this.querySelector('.btn-submit');
+    btn.disabled=true; btn.textContent='Submitting…';
+
+    var fd=new FormData(this);
+    var data={
+      name: fd.get('name'),
+      phone: fd.get('phone'),
+      rating: fd.get('rating'),
+      highlights: fd.getAll('highlights'),
+      dining_with: fd.get('dining_with'),
+      review: fd.get('review')
+    };
+
+    try{
+      var res=await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+      if(!res.ok)throw new Error('fail');
+      this.style.display='none';
+      document.getElementById('form-thanks').style.display='block';
+    }catch{
+      btn.disabled=false; btn.textContent='Submit Review';
+      alert('Something went wrong. Please try again.');
+    }
+  });
 </script>
 
 </body>
