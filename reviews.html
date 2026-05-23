@@ -102,7 +102,8 @@
     /* ══════════════ HERO ══════════════ */
     #hero {
       height: 52vh; min-height: 380px;
-      background-color: #1d3d2a;
+      background-image: url('headerbg.jpeg');
+      background-size: cover; background-position: center;
       position: relative; display: flex;
       align-items: center; justify-content: center;
       overflow: hidden;
@@ -110,19 +111,8 @@
     .hero-gradient {
       position: absolute; inset: 0; pointer-events: none;
       background:
-        radial-gradient(ellipse 70% 58% at 62% 60%, rgba(5,14,8,.92) 0%, transparent 65%),
-        radial-gradient(ellipse 48% 44% at 20% 25%, rgba(4,12,7,.80) 0%, transparent 55%),
-        radial-gradient(ellipse 55% 42% at 86% 18%, rgba(24,52,34,.55) 0%, transparent 52%);
-    }
-    .hero-grain-c {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.42 .36' numOctaves='4' seed='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>");
-      background-size: 550px 550px; mix-blend-mode: soft-light; opacity: .72;
-    }
-    .hero-grain-f {
-      position: absolute; inset: 0; pointer-events: none;
-      background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.78 .66' numOctaves='3' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>");
-      background-size: 260px 260px; mix-blend-mode: overlay; opacity: .38;
+        radial-gradient(ellipse 80% 100% at 50% 100%, rgba(5,14,8,.55) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 50% at 50% 0%, rgba(5,14,8,.35) 0%, transparent 55%);
     }
     .hero-fl-tl {
       position: absolute; top: 0; left: 0;
@@ -591,8 +581,6 @@
 <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
 <section id="hero">
   <div class="hero-gradient"></div>
-  <div class="hero-grain-c"></div>
-  <div class="hero-grain-f"></div>
   <svg class="hero-fl-tl" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
     <use href="#fl-tl" stroke-width="0.7"/>
   </svg>
