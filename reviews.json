@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "1779523928490-e8ugd",
+    "name": "Aditya Verma",
+    "phone": "62626268629",
+    "rating": 5,
+    "highlights": [
+      "Ambience",
+      "Drinks",
+      "Omakase Bar"
+    ],
+    "dining_with": "Family",
+    "review": "Perfect ambience",
+    "submitted_at": "2026-05-23T08:12:08.490Z"
+  }
+]
