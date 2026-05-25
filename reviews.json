@@ -4,7 +4,11 @@
     "name": "Aditya Verma",
     "phone": "62626268629",
     "rating": 5,
-    "highlights": ["Ambience", "Drinks", "Omakase Bar"],
+    "highlights": [
+      "Ambience",
+      "Drinks",
+      "Omakase Bar"
+    ],
     "dining_with": "Family",
     "review": "Perfect ambience",
     "submitted_at": "2026-05-23T08:12:08.490Z"
@@ -13,7 +17,11 @@
     "id": "seed-1",
     "name": "Hisandhercravings",
     "rating": 5,
-    "highlights": ["Food", "Ambience", "Service"],
+    "highlights": [
+      "Food",
+      "Ambience",
+      "Service"
+    ],
     "dining_with": "Partner",
     "review": "Last evening, I took Payal out for a sundowner date, looking for a place with good vibes, great food, and a setting that feels elevated yet relaxed. Soraia delivered on every front. The rooftop ambience at dusk is simply spectacular — the light, the greenery, the quiet luxury of it all. Service was warm without being intrusive, and the tasting menu felt like a genuine culinary journey. Both classic and brilliantly surprising.",
     "submitted_at": "2026-05-09T14:00:00.000Z"
@@ -22,7 +30,11 @@
     "id": "seed-2",
     "name": "Urmi Chhapia",
     "rating": 5,
-    "highlights": ["Food", "Service", "Drinks"],
+    "highlights": [
+      "Food",
+      "Service",
+      "Drinks"
+    ],
     "dining_with": "Friends",
     "review": "Soraia is a very pretty restaurant with panoramic views across the city. The food and cocktails are excellent — each plate arrived with a story and each cocktail was a composition in itself. The staff are courteous and attentive without hovering. The Omakase Bar experience is unlike anything else in Mumbai, and I say that as someone who has been to most of the city's fine-dining establishments.",
     "submitted_at": "2026-05-09T18:00:00.000Z"
@@ -31,7 +43,10 @@
     "id": "seed-3",
     "name": "Adttya Verma",
     "rating": 4,
-    "highlights": ["Food", "Ambience"],
+    "highlights": [
+      "Food",
+      "Ambience"
+    ],
     "dining_with": "Family",
     "review": "A truly elevated experience. The botanical interiors make you feel transported to another era entirely. Every course was thoughtfully composed and I particularly loved the Indian-European fusion approach — familiar flavours reimagined with genuine restraint and technique. Would strongly recommend the omakase format for a special occasion. The only small note: parking on a weekend evening can be a challenge.",
     "submitted_at": "2026-04-23T19:00:00.000Z"
@@ -40,7 +55,12 @@
     "id": "seed-4",
     "name": "Priya Mehta",
     "rating": 5,
-    "highlights": ["Food", "Service", "Ambience", "Drinks"],
+    "highlights": [
+      "Food",
+      "Service",
+      "Ambience",
+      "Drinks"
+    ],
     "dining_with": "Partner",
     "review": "Perfect anniversary dinner. The attention to detail — from the candlelit table setting to the handwritten seasonal menu — was impeccable throughout. Chef's pairings showed genuine mastery and the cocktail programme is inventive without being gimmicky. The team even arranged a small personalised dessert as a surprise. We will absolutely be back, and have already recommended Soraia to everyone we know.",
     "submitted_at": "2026-04-11T20:00:00.000Z"
@@ -49,7 +69,11 @@
     "id": "seed-5",
     "name": "Rahul Joshi",
     "rating": 5,
-    "highlights": ["Food", "Service", "Atmosphere"],
+    "highlights": [
+      "Food",
+      "Service",
+      "Atmosphere"
+    ],
     "dining_with": "Solo",
     "review": "Worth every rupee. The service is gracious without being stiff and there is a warmth to this place that simply cannot be manufactured. The food has real soul — deeply rooted in Indian flavour memory but completely open to European technique and sensibility. Sitting at the omakase bar solo was one of the more memorable dining experiences I have had in this city. This is what fine dining in Mumbai should feel like.",
     "submitted_at": "2026-03-23T19:30:00.000Z"
@@ -58,9 +82,25 @@
     "id": "seed-6",
     "name": "Sanjana Rao",
     "rating": 5,
-    "highlights": ["Food", "Ambience", "Drinks"],
+    "highlights": [
+      "Food",
+      "Ambience",
+      "Drinks"
+    ],
     "dining_with": "Colleagues",
     "review": "We came for a team dinner and Soraia exceeded every expectation. The private dining setup was elegant without feeling corporate, and the chef's custom menu for the evening was a genuine conversation piece. Each course sparked discussion and delight in equal measure. The botanical wine list is thoughtfully curated and the sommelier's pairings were inspired. A restaurant with a distinct point of view — rare and refreshing.",
     "submitted_at": "2026-02-23T18:00:00.000Z"
+  },
+  {
+    "id": "1779701832144-qo3g1",
+    "name": "ADI",
+    "phone": "7808770877",
+    "rating": 5,
+    "highlights": [
+      "Omakase Bar"
+    ],
+    "dining_with": "Friends",
+    "review": "Lovely experiene and vibe",
+    "submitted_at": "2026-05-25T09:37:12.144Z"
   }
 ]
