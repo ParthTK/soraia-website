@@ -102,5 +102,17 @@
     "dining_with": "Friends",
     "review": "Lovely experiene and vibe",
     "submitted_at": "2026-05-25T09:37:12.144Z"
+  },
+  {
+    "id": "1779706157992-avwo5",
+    "name": "ADI",
+    "phone": "9930067556",
+    "rating": 5,
+    "highlights": [
+      "Service"
+    ],
+    "dining_with": "Friends",
+    "review": "lovely food i liked it to much",
+    "submitted_at": "2026-05-25T10:49:17.993Z"
   }
 ]
