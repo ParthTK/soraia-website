@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Soraia</title>
+  <link rel="icon" href="tab-logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+SC:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #183222;
+      --green-dark: #112219;
+      --green-card: #162B1E;
+      --cream:      #f0ebe0;
+      --cream-dark: #e2dccf;
+      --gold:       #c4965a;
+      --text-dark:  #1a3323;
+      --text-muted: #587060;
+      --text-light: #f0ebe0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cormorant Garamond', Georgia, serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+
+    /* ══════════════ NAV ══════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: transparent;
+      transition: background .32s ease, box-shadow .32s ease;
+      display: flex; align-items: center;
+      height: 56px; padding: 0 44px;
+    }
+    nav.nav-solid { background: var(--cream); box-shadow: 0 1px 0 rgba(26,51,35,.07); }
+    .nav-l, .nav-r { display: flex; align-items: center; gap: 36px; flex: 1; }
+    .nav-r { justify-content: flex-end; }
+    .nav-c { position: absolute; left: 50%; transform: translateX(-50%); }
+    .nav-link {
+      font-family: 'Cormorant SC', serif; font-size: 11px; letter-spacing: .2em;
+      color: rgba(240,235,224,.82); text-decoration: none; transition: color .2s;
+    }
+    .nav-link:hover { color: var(--gold); }
+    .nav-link.active { color: var(--gold); }
+    nav.nav-solid .nav-link { color: var(--text-dark); }
+    nav.nav-solid .nav-link.active { color: var(--gold); }
+    nav.nav-solid .nav-link:hover { color: var(--gold); }
+    .logo-mark { display: inline-flex; align-items: center; text-decoration: none; }
+    .nav-logo  { height: 34px; display: block; object-fit: contain; transition: filter .32s ease; }
+    nav.nav-solid .nav-logo { filter: brightness(0) saturate(100%) invert(17%) sepia(32%) saturate(720%) hue-rotate(114deg) brightness(94%) contrast(93%); }
+    .btn-book-nav {
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .2em;
+      color: rgba(240,235,224,.82); border: 1.5px solid rgba(240,235,224,.32);
+      padding: 9px 22px; text-decoration: none;
+      transition: background .2s, color .2s, border-color .2s; white-space: nowrap;
+    }
+    .btn-book-nav:hover { background: rgba(240,235,224,.12); }
+    nav.nav-solid .btn-book-nav { color: var(--text-dark); border-color: var(--text-dark); }
+    nav.nav-solid .btn-book-nav:hover { background: var(--text-dark); color: var(--cream); }
+    .ig-icon { width: 18px; height: 18px; color: rgba(240,235,224,.72); flex-shrink: 0; transition: color .2s; }
+    nav.nav-solid .ig-icon { color: var(--text-dark); }
+
+    .nav-burger {
+      display: none; cursor: pointer; background: none; border: none; padding: 0;
+      width: 40px; height: 40px; border-radius: 50%;
+      outline: 1px solid rgba(240,235,224,.35);
+      align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+      color: rgba(240,235,224,.85); transition: outline-color .25s, color .25s;
+    }
+    nav.nav-solid .nav-burger { outline-color: rgba(26,51,35,.22); color: var(--text-dark); }
+    .nav-burger span { display: block; width: 17px; height: 1.5px; background: currentColor; border-radius: 1px; transition: transform .24s, opacity .24s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-mobile-panel {
+      position: fixed; top: 56px; left: 0; right: 0; z-index: 998;
+      background: var(--cream); overflow: hidden; max-height: 0;
+      transition: max-height .38s cubic-bezier(.4,0,.2,1), box-shadow .2s;
+    }
+    .nav-mobile-panel.open { max-height: 420px; box-shadow: 0 8px 28px rgba(26,51,35,.12); }
+    .nav-mob-inner { padding: 10px 22px 26px; }
+    .nav-mob-link {
+      display: block; font-family: 'Cormorant SC', serif; font-size: 14px; letter-spacing: .22em;
+      color: var(--text-dark); text-decoration: none;
+      padding: 15px 0; border-bottom: 1px solid rgba(26,51,35,.07); transition: color .2s;
+    }
+    .nav-mob-link:hover, .nav-mob-link.active { color: var(--gold); }
+    .nav-mob-book {
+      display: block; text-align: center;
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em;
+      color: var(--cream); background: var(--text-dark);
+      padding: 15px; margin-top: 18px; text-decoration: none; transition: background .2s;
+    }
+    .nav-mob-book:hover { background: var(--green); }
+
+    /* ══════════════ HERO ══════════════ */
+    #hero {
+      height: 52vh; min-height: 380px;
+      background-image: url('headerbg.jpeg');
+      background-size: cover; background-position: center;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 100%, rgba(5,14,8,.55) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 50% at 50% 0%, rgba(5,14,8,.35) 0%, transparent 55%);
+    }
+    .hero-fl-tl {
+      position: absolute; top: 0; left: 0;
+      width: 260px; height: 260px; z-index: 1;
+      opacity: .22; pointer-events: none; color: #c4965a;
+    }
+    .hero-fl-br {
+      position: absolute; bottom: 0; right: 0;
+      width: 240px; height: 240px; z-index: 1;
+      opacity: .22; pointer-events: none; color: #c4965a;
+    }
+    .hero-page-text {
+      position: relative; z-index: 2; color: #d4b896;
+    }
+    .hero-page-text .hero-g   { font-family: 'Great Vibes', cursive; font-size: 108px; line-height: 1; display: inline-block; transform: translateY(8px); color: #d4b896; }
+    .hero-page-text .hero-est { font-family: 'Cormorant SC', serif; font-size: 88px; letter-spacing: .06em; font-weight: 300; color: #d4b896; }
+
+    /* ══════════════ GALLERY SECTION ══════════════ */
+    .gallery-section {
+      background: var(--cream);
+      padding: 72px 0 110px;
+    }
+
+    .gallery-header {
+      text-align: center;
+      padding: 0 40px 52px;
+    }
+    .sec-sup {
+      font-family: 'Cormorant SC', serif;
+      font-size: 10px; letter-spacing: .32em;
+      color: var(--text-muted); margin-bottom: 6px; display: block;
+    }
+    .sec-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px; font-weight: 300;
+      color: var(--text-dark); line-height: 1.08;
+      margin-bottom: 10px;
+    }
+    .gold-rule { width: 46px; height: 1px; background: var(--gold); margin: 0 auto; }
+
+    /* Filter tabs */
+    .gallery-filters {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(26,51,35,.08);
+      margin: 0 80px;
+    }
+    .gf-btn {
+      font-family: 'Cormorant SC', serif;
+      font-size: 11px; letter-spacing: .28em;
+      color: var(--text-muted);
+      background: none; border: none;
+      border-bottom: 1.5px solid transparent;
+      padding: 10px 30px 12px;
+      cursor: pointer;
+      transition: color .2s, border-color .2s;
+      margin-bottom: -1px;
+    }
+    .gf-btn:hover { color: var(--text-dark); }
+    .gf-btn.active { color: var(--text-dark); border-bottom-color: var(--gold); }
+
+    /* Masonry grid */
+    .gallery-grid {
+      columns: 3;
+      column-gap: 10px;
+      padding: 52px 80px 0;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gi {
+      break-inside: avoid;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .gi.gi--hidden { display: none; }
+
+    .gi img {
+      width: 100%; display: block;
+      transition: transform .5s ease;
+    }
+    .gi:hover img { transform: scale(1.04); }
+
+    .gi-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(17,34,25,.72) 0%, transparent 55%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end;
+      padding: 18px 20px;
+    }
+    .gi:hover .gi-overlay { opacity: 1; }
+
+    .gi-caption {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-style: italic;
+      color: rgba(240,235,224,.9);
+      line-height: 1.3;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(5,12,8,.96);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .26s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lb-img {
+      max-width: 88vw; max-height: 86vh;
+      object-fit: contain; display: block;
+      user-select: none;
+    }
+
+    .lb-close {
+      position: absolute; top: 22px; right: 26px;
+      font-size: 32px; line-height: 1;
+      color: rgba(240,235,224,.55);
+      background: none; border: none; cursor: pointer;
+      transition: color .2s; font-family: 'Cormorant Garamond', serif;
+    }
+    .lb-close:hover { color: var(--gold); }
+
+    .lb-prev, .lb-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: 52px; line-height: 1;
+      color: rgba(240,235,224,.35);
+      background: none; border: none; cursor: pointer;
+      padding: 0 24px; transition: color .2s;
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    }
+    .lb-prev { left: 0; }
+    .lb-next { right: 0; }
+    .lb-prev:hover, .lb-next:hover { color: rgba(240,235,224,.85); }
+
+    .lb-caption {
+      position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-style: italic;
+      color: rgba(240,235,224,.5); letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .lb-counter {
+      position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+      font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .22em;
+      color: rgba(240,235,224,.3);
+    }
+
+    /* ══════════════ FOOTER ══════════════ */
+    footer { background: var(--green-dark); padding: 80px 100px 36px; position: relative; overflow: hidden; }
+    .footer-bg { position: absolute; inset: 0; z-index: 0; opacity: .06; pointer-events: none; width: 100%; height: 100%; }
+    .footer-inner { position: relative; z-index: 1; }
+    .footer-top {
+      display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 60px;
+      padding-bottom: 48px; margin-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-brand { display: flex; align-items: center; margin-bottom: 14px; }
+    .footer-logo-img { height: 52px; display: block; object-fit: contain; }
+    .footer-tagline { font-size: 13px; font-style: italic; color: rgba(240,235,224,.44); line-height: 1.72; max-width: 260px; }
+    .footer-col-label { font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .26em; color: rgba(240,235,224,.38); margin-bottom: 22px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 16px; font-style: italic; color: rgba(240,235,224,.64); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-contact { font-size: 14px; font-style: italic; color: rgba(240,235,224,.64); line-height: 1.8; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant SC', serif; font-size: 10px; letter-spacing: .06em; color: rgba(240,235,224,.26); }
+    .footer-bottom-links { display: flex; align-items: center; gap: 18px; }
+    .footer-bottom-links a { color: rgba(240,235,224,.26); text-decoration: none; transition: color .2s; }
+    .footer-bottom-links a:hover { color: rgba(240,235,224,.5); }
+    .f-sep { color: rgba(240,235,224,.14); }
+
+    /* ══════════════ MOBILE ══════════════ */
+    @media (max-width: 860px) {
+      nav { padding: 0 18px; height: 52px; }
+      .nav-l { gap: 12px; }
+      .nav-l .nav-link, .nav-r .nav-link { display: none; }
+      .btn-book-nav { display: none; }
+      .nav-r { gap: 0; }
+      .nav-burger { display: flex; }
+
+      #hero { height: 38vh; min-height: 230px; }
+      .hero-fl-tl { width: 130px; height: 130px; }
+      .hero-fl-br { width: 120px; height: 120px; }
+      .hero-page-text .hero-g   { font-size: 58px; }
+      .hero-page-text .hero-est { font-size: 46px; }
+
+      .gallery-section { padding: 48px 0 60px; }
+      .gallery-header { padding: 0 20px 36px; }
+      .sec-heading { font-size: 30px; }
+
+      .gallery-filters { margin: 0 20px; gap: 0; flex-wrap: wrap; }
+      .gf-btn { padding: 8px 18px 10px; font-size: 10px; }
+
+      .gallery-grid { columns: 2; column-gap: 6px; padding: 36px 20px 0; }
+      .gi { margin-bottom: 6px; }
+      .gi-caption { font-size: 12px; }
+
+      .lb-prev, .lb-next { font-size: 36px; padding: 0 12px; }
+      .lb-caption { font-size: 13px; }
+
+      footer { padding: 48px 22px 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-bottom-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG DEFS -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="botanical-card" viewBox="0 0 500 380" fill="none" stroke="white" stroke-width="0.55" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="250" cy="190" r="8"/><circle cx="250" cy="190" r="4"/>
+      <path d="M247 182C239 158 235 126 238 94 244 124 247 156 247 182Z"/>
+      <path d="M253 182C261 158 265 126 262 94 256 124 253 156 253 182Z"/>
+      <path d="M257 186C276 172 296 154 314 130 296 156 277 174 257 186Z"/>
+      <path d="M259 192C282 190 308 188 334 192 308 200 282 200 259 192Z"/>
+      <path d="M257 198C276 218 296 240 314 266 296 242 277 220 257 198Z"/>
+      <path d="M253 202C261 228 265 258 262 290 256 260 253 228 253 202Z"/>
+      <path d="M247 202C239 228 235 258 238 290 244 260 247 228 247 202Z"/>
+      <path d="M243 198C224 218 204 240 186 266 204 242 223 220 243 198Z"/>
+      <path d="M241 192C218 190 192 188 166 192 192 200 218 200 241 192Z"/>
+      <path d="M243 186C224 172 204 154 186 130 204 156 223 174 243 186Z"/>
+      <path d="M244 202C220 242 190 285 158 318"/>
+      <path d="M190 278C178 264 162 258 153 269 163 272 177 276 190 278Z"/>
+      <path d="M190 278C186 292 190 306 202 310 195 298 190 288 190 278Z"/>
+      <path d="M256 202C275 242 296 282 310 318"/>
+      <path d="M290 282C300 270 310 266 318 275 310 278 300 282 290 282Z"/>
+      <circle cx="72" cy="72" r="5"/><circle cx="72" cy="72" r="2.5"/>
+      <path d="M70 67C64 54 62 36 65 18 68 36 70 54 70 67Z"/>
+      <path d="M74 67C80 54 82 36 79 18 76 36 74 54 74 67Z"/>
+      <path d="M77 72C90 65 106 60 124 62 106 69 90 72 77 72Z"/>
+      <path d="M67 72C54 65 38 60 20 62 38 69 54 72 67 72Z"/>
+      <circle cx="438" cy="88" r="4.5"/>
+      <path d="M436 84C430 72 428 54 431 36 434 54 436 72 436 84Z"/>
+      <path d="M440 84C446 72 448 54 445 36 442 54 440 72 440 84Z"/>
+      <path d="M443 88C454 82 468 78 484 80 468 87 454 88 443 88Z"/>
+      <path d="M433 88C422 82 408 78 392 80 408 87 422 88 433 88Z"/>
+    </symbol>
+
+    <symbol id="fl-tl" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="188" cy="188" r="5.5"/><circle cx="188" cy="188" r="2.5"/>
+      <path d="M186 182C178 160 170 130 174 100 179 128 184 158 186 182Z" stroke-width="0.8"/>
+      <path d="M190 182C198 160 206 130 202 100 197 128 192 158 190 182Z" stroke-width="0.8"/>
+      <path d="M193 185C208 168 226 148 248 130 228 150 210 170 193 185Z" stroke-width="0.8"/>
+      <path d="M195 190C218 188 244 186 270 190 244 198 218 198 195 190Z" stroke-width="0.8"/>
+      <path d="M193 195C208 215 226 238 248 258 228 240 210 218 193 195Z" stroke-width="0.8"/>
+      <path d="M190 198C198 222 206 250 202 278 197 252 192 222 190 198Z" stroke-width="0.8"/>
+      <path d="M186 198C178 222 170 250 174 278 179 252 184 222 186 198Z" stroke-width="0.8"/>
+      <path d="M183 195C168 215 150 238 128 258 148 240 166 218 183 195Z" stroke-width="0.8"/>
+      <path d="M181 190C158 188 132 186 106 190 132 198 158 198 181 190Z" stroke-width="0.8"/>
+      <path d="M183 185C168 168 150 148 128 130 148 150 166 170 183 185Z" stroke-width="0.8"/>
+    </symbol>
+
+    <symbol id="fl-br" viewBox="0 0 300 300" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="112" cy="112" r="5"/><circle cx="112" cy="112" r="2.5"/>
+      <path d="M110 106C102 84 98 54 102 24 107 52 110 82 110 106Z" stroke-width="0.8"/>
+      <path d="M114 106C122 84 126 54 122 24 117 52 114 82 114 106Z" stroke-width="0.8"/>
+      <path d="M117 110C132 92 150 72 172 54 152 74 134 94 117 110Z" stroke-width="0.8"/>
+      <path d="M119 116C142 114 168 112 194 116 168 124 142 124 119 116Z" stroke-width="0.8"/>
+      <path d="M117 122C132 142 150 166 172 188 152 168 134 144 117 122Z" stroke-width="0.8"/>
+      <path d="M114 126C122 150 126 180 122 210 117 182 114 150 114 126Z" stroke-width="0.8"/>
+      <path d="M110 126C102 150 98 180 102 210 107 182 110 150 110 126Z" stroke-width="0.8"/>
+      <path d="M107 122C92 142 74 166 52 188 72 168 90 144 107 122Z" stroke-width="0.8"/>
+      <path d="M105 116C82 114 56 112 30 116 56 124 82 124 105 116Z" stroke-width="0.8"/>
+      <path d="M107 110C92 92 74 72 52 54 72 74 90 94 107 110Z" stroke-width="0.8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
+<nav>
+  <div class="nav-l">
+    <a href="https://instagram.com/soraia.in" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5.5"/>
+        <circle cx="12" cy="12" r="4.5"/>
+        <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <a href="index.html#about"      class="nav-link">About</a>
+    <a href="index.html#experience" class="nav-link">Experience</a>
+  </div>
+  <div class="nav-c">
+    <a href="index.html" class="logo-mark">
+      <img src="soraia.webp" alt="Soraia" class="nav-logo">
+    </a>
+  </div>
+  <div class="nav-r">
+    <a href="menu.html"     class="nav-link">Menu</a>
+    <a href="reviews.html"  class="nav-link">Reviews</a>
+    <a href="gallery.html"  class="nav-link active">Gallery</a>
+    <a href="index.html#visit" class="btn-book-nav">Book Now</a>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile-panel">
+  <div class="nav-mob-inner">
+    <a href="index.html#about"      class="nav-mob-link">About</a>
+    <a href="index.html#experience" class="nav-mob-link">Experience</a>
+    <a href="menu.html"             class="nav-mob-link">Menu</a>
+    <a href="reviews.html"          class="nav-mob-link">Reviews</a>
+    <a href="gallery.html"          class="nav-mob-link active">Gallery</a>
+    <a href="index.html#visit"      class="nav-mob-link">Contact</a>
+    <a href="index.html#visit"      class="nav-mob-book">Book Now</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<section id="hero">
+  <div class="hero-gradient"></div>
+  <svg class="hero-fl-tl" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-tl" stroke-width="0.7"/>
+  </svg>
+  <svg class="hero-fl-br" viewBox="0 0 300 300" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fl-br" stroke-width="0.7"/>
+  </svg>
+  <div class="hero-page-text">
+    <span class="hero-g">G</span><span class="hero-est">ALLERIA</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ GALLERY ══════════════════════════════ -->
+<section class="gallery-section">
+
+  <div class="gallery-header">
+    <span class="sec-sup">A Visual Story</span>
+    <h2 class="sec-heading">The Soraia Experience</h2>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="gallery-filters">
+    <button class="gf-btn active" data-filter="all">All</button>
+    <button class="gf-btn" data-filter="ambience">Ambience</button>
+    <button class="gf-btn" data-filter="food">Food</button>
+    <button class="gf-btn" data-filter="beverages">Beverages</button>
+  </div>
+
+  <div class="gallery-grid">
+
+    <!-- ── Ambience ── -->
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_7895.jpg" alt="Soraia dining room" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_7742.jpg" alt="Soraia conservatory" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/1.jpeg" alt="Soraia night" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_8252.jpg" alt="Soraia terrace" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/5.jpeg" alt="Soraia interiors" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_7788.jpg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/9.jpeg" alt="Soraia bar" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_8070.jpg" alt="Soraia seating" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/2.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_7848.jpg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/3.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_7910.jpg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/4.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_8049.jpg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/6.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/ELR-WSA_8292.jpg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/7.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/8.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/10.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+    <div class="gi" data-category="ambience" data-caption="Soraia">
+      <img src="gallery/Ambience/11.jpeg" alt="Soraia" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia</span></div>
+    </div>
+
+    <!-- ── Food ── -->
+    <div class="gi" data-category="food" data-caption="Gucchi Silk">
+      <img src="gallery/food/Gucchi Silk.JPG" alt="Gucchi Silk" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Gucchi Silk</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Tiger Prawn XEC XEC">
+      <img src="gallery/food/Tiger Prawn XEC XEC.JPG" alt="Tiger Prawn XEC XEC" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Tiger Prawn XEC XEC</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Burrata Butter Masala">
+      <img src="gallery/food/Burrata Butter Masala.JPG" alt="Burrata Butter Masala" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Burrata Butter Masala</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Tiramisu Bomboloni">
+      <img src="gallery/food/Tiramisu Bomboloni.JPG" alt="Tiramisu Bomboloni" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Tiramisu Bomboloni</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Azlani Chicken Korma">
+      <img src="gallery/food/Azlani Chicken Korma.JPG" alt="Azlani Chicken Korma" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Azlani Chicken Korma</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Chermoula Fish">
+      <img src="gallery/food/Chermoula Fish.JPG" alt="Chermoula Fish" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Chermoula Fish</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Chhurpi & Kandhari Badam Agnolotti">
+      <img src="gallery/food/Chhurpi& Kandhari Badam Agnolotti.jpg" alt="Chhurpi & Kandhari Badam Agnolotti" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Chhurpi & Kandhari Badam Agnolotti</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Chocolate Nut Crunch">
+      <img src="gallery/food/Chocolate Nut Crunch.JPG" alt="Chocolate Nut Crunch" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Chocolate Nut Crunch</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Coastal Coconut Fish Curry">
+      <img src="gallery/food/Coastal Coconut Fish Curry (Meen Moilee).JPG" alt="Coastal Coconut Fish Curry" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Coastal Coconut Fish Curry</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Coffee and Roses">
+      <img src="gallery/food/Coffee and Roses.JPG" alt="Coffee and Roses" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Coffee and Roses</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Crispy Thecha Potatoes">
+      <img src="gallery/food/Crispy Thecha Potatoes .JPG" alt="Crispy Thecha Potatoes" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Crispy Thecha Potatoes</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Fire Roasted Corn Riblets">
+      <img src="gallery/food/fire roasted corn riblets(1).JPG" alt="Fire Roasted Corn Riblets" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Fire Roasted Corn Riblets</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Forest Mushroom Risotto">
+      <img src="gallery/food/Forest Mushroom Risotto.JPG" alt="Forest Mushroom Risotto" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Forest Mushroom Risotto</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Fruit Ceviche">
+      <img src="gallery/food/Fruit Ceviche(2).jpg" alt="Fruit Ceviche" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Fruit Ceviche</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Jackfruit Berry Pulao">
+      <img src="gallery/food/Jackfruit Berry Pulao.JPG" alt="Jackfruit Berry Pulao" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Jackfruit Berry Pulao</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Lentil Lamb Kebab">
+      <img src="gallery/food/Lentil Lamb Kebab.JPG" alt="Lentil Lamb Kebab" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Lentil Lamb Kebab</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Lotus Stem Pinsa">
+      <img src="gallery/food/Lotus Stem Pinsa.JPG" alt="Lotus Stem Pinsa" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Lotus Stem Pinsa</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Mutton Sukka Taco">
+      <img src="gallery/food/Mutton Sukka Taco.JPG" alt="Mutton Sukka Taco" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Mutton Sukka Taco</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Naan Turnovers">
+      <img src="gallery/food/Naan Turnovers.JPG" alt="Naan Turnovers" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Naan Turnovers</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Ah'samp Paratha Ghee Roast">
+      <img src="gallery/food/Ah'samp paratha ghee roast.JPG" alt="Ah'samp Paratha Ghee Roast" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Ah'samp Paratha Ghee Roast</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Black Noir">
+      <img src="gallery/food/Black Noir(1).JPG" alt="Black Noir" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Black Noir</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Chicken Tikka Masala Crepe">
+      <img src="gallery/food/Chicken Tikka Masala Crepe(1).JPG" alt="Chicken Tikka Masala Crepe" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Chicken Tikka Masala Crepe</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Shiso Chaat">
+      <img src="gallery/food/Shiso Chaat(1).jpg" alt="Shiso Chaat" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Shiso Chaat</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Sitafal Tres Leches">
+      <img src="gallery/food/Sitafal Tres Leches(1).JPG" alt="Sitafal Tres Leches" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Sitafal Tres Leches</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Spicy Mary Spaghetti">
+      <img src="gallery/food/Spicy Mary Spaghetti .JPG" alt="Spicy Mary Spaghetti" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Spicy Mary Spaghetti</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Warm Brie Hive">
+      <img src="gallery/food/Warm brie hive (1).JPG" alt="Warm Brie Hive" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Warm Brie Hive</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Soraia Kitchen">
+      <img src="gallery/food/00010011.JPG" alt="Soraia Kitchen" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Kitchen</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Soraia Kitchen">
+      <img src="gallery/food/00010012.JPG" alt="Soraia Kitchen" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Kitchen</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Soraia Kitchen">
+      <img src="gallery/food/00010013.JPG" alt="Soraia Kitchen" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Kitchen</span></div>
+    </div>
+    <div class="gi" data-category="food" data-caption="Soraia Kitchen">
+      <img src="gallery/food/00010024.JPG" alt="Soraia Kitchen" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Kitchen</span></div>
+    </div>
+
+    <!-- ── Beverages ── -->
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/ELR-WSA_7823.jpg" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009482.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009483.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009484.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009485.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009486.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+    <div class="gi" data-category="beverages" data-caption="Soraia Cocktail">
+      <img src="gallery/beverages/00009487.JPG" alt="Soraia Cocktail" loading="lazy">
+      <div class="gi-overlay"><span class="gi-caption">Soraia Cocktail</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════ LIGHTBOX ══════════════════════════════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <span class="lb-counter" id="lb-counter"></span>
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-prev" aria-label="Previous">‹</button>
+  <img class="lb-img" id="lb-img" src="" alt="">
+  <button class="lb-next" aria-label="Next">›</button>
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
+
+<!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer>
+  <svg class="footer-bg" viewBox="0 0 1300 500" fill="none" stroke="white" stroke-linecap="round" preserveAspectRatio="xMidYMid slice">
+    <use href="#botanical-card" transform="translate(-80,-60) scale(2.4)" stroke-width="0.4"/>
+    <use href="#botanical-card" transform="translate(760,-60) scale(2.4)" stroke-width="0.4"/>
+  </svg>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <img src="soraia.webp" alt="Soraia" class="footer-logo-img">
+        </div>
+        <p class="footer-tagline">India's first modern Indian-European restaurant with an Omakase Bar</p>
+      </div>
+      <div>
+        <p class="footer-col-label">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#experience">Experience</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="index.html#visit">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-label">Contact</p>
+        <p class="footer-contact">Mumbai, India<br>For reservations and inquiries</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Soraia Innercircle Hospitality LLP. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <span>Designed &amp; Developed by @Eigensu</span>
+        <span class="f-sep">|</span>
+        <a href="#">Privacy Policy</a>
+        <span class="f-sep">|</span>
+        <a href="#">Terms of Service</a>
+        <span class="f-sep">|</span>
+        <span>Powered by Eigensu</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── Nav ── */
+  (function(){
+    var nav=document.querySelector('nav'),burger=document.querySelector('.nav-burger'),panel=document.querySelector('.nav-mobile-panel');
+    function u(){nav.classList.toggle('nav-solid',window.scrollY>40);}
+    window.addEventListener('scroll',u,{passive:true});u();
+    if(burger&&panel){
+      burger.addEventListener('click',function(){var o=panel.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);});
+      panel.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){panel.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false);});});
+    }
+  })();
+
+  /* ── Filter ── */
+  var filterBtns = document.querySelectorAll('.gf-btn');
+  var allItems   = document.querySelectorAll('.gi');
+
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter;
+      allItems.forEach(function(item){
+        if(f==='all' || item.dataset.category===f){
+          item.classList.remove('gi--hidden');
+        } else {
+          item.classList.add('gi--hidden');
+        }
+      });
+    });
+  });
+
+  /* ── Lightbox ── */
+  (function(){
+    var lb      = document.getElementById('lightbox');
+    var lbImg   = document.getElementById('lb-img');
+    var lbCap   = document.getElementById('lb-caption');
+    var lbCount = document.getElementById('lb-counter');
+    var current = 0;
+    var visible = [];
+
+    function getVisible(){
+      return Array.from(document.querySelectorAll('.gi:not(.gi--hidden)'));
+    }
+
+    function open(i){
+      visible = getVisible();
+      current = i;
+      var item = visible[i];
+      lbImg.src = item.querySelector('img').src;
+      lbCap.textContent = item.dataset.caption || '';
+      lbCount.textContent = (i+1) + ' / ' + visible.length;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close(){
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(function(){ lbImg.src=''; }, 280);
+    }
+
+    function prev(){ open((current - 1 + visible.length) % visible.length); }
+    function next(){ open((current + 1) % visible.length); }
+
+    allItems.forEach(function(item){
+      item.addEventListener('click', function(){
+        visible = getVisible();
+        open(visible.indexOf(item));
+      });
+    });
+
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.querySelector('.lb-prev').addEventListener('click', function(e){ e.stopPropagation(); prev(); });
+    lb.querySelector('.lb-next').addEventListener('click', function(e){ e.stopPropagation(); next(); });
+    lb.addEventListener('click', function(e){ if(e.target===lb) close(); });
+
+    document.addEventListener('keydown', function(e){
+      if(!lb.classList.contains('open')) return;
+      if(e.key==='Escape') close();
+      if(e.key==='ArrowLeft') prev();
+      if(e.key==='ArrowRight') next();
+    });
+  })();
+</script>
+
+</body>
+</html>
