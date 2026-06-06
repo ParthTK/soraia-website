@@ -767,6 +767,15 @@
     });
   });
 
+  /* ── URL filter param ── */
+  (function(){
+    var f = new URLSearchParams(window.location.search).get('filter');
+    if(f){
+      var btn = document.querySelector('.gf-btn[data-filter="'+f+'"]');
+      if(btn) btn.click();
+    }
+  })();
+
   /* ── Lightbox ── */
   (function(){
     var lb      = document.getElementById('lightbox');
